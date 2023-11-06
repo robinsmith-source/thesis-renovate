@@ -12,8 +12,8 @@ export default async function Page({ params }: { params: { id: string } }) {
       <p>{recipe.description}</p>
       <ul>
         {recipe.steps.map((step, i) => (
-          <li>
-            <h2 class="font-semibold">
+          <li key={step.id}>
+            <h2 className="font-semibold">
               {i + 1} {step.description}
             </h2>
             <p>{step.duration}</p>
