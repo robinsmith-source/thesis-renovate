@@ -30,7 +30,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable} min-h-screen bg-primary`}>
+      <body
+        className={`font-sans ${inter.variable} min-h-screen bg-background text-foreground`}
+      >
         <SessionProvider session={session}>
           <Providers>
             <MainNavbar />

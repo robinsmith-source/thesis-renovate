@@ -12,13 +12,11 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type { Session } from "next-auth";
+import NextImage from "next/image";
+import { useSession } from "next-auth/react";
 
 function LoginBar({ session }: { session: Session }) {
   return (
@@ -51,15 +49,12 @@ function LoginBar({ session }: { session: Session }) {
     </Dropdown>
   );
 }
-import NextImage from "next/image";
-import { useSession } from "next-auth/react";
 
 export default function MainNavbar() {
-  const pathname = usePathname();
   const { data: session } = useSession();
 
   return (
-    <Navbar maxWidth="xl" className="">
+    <Navbar maxWidth="xl" className="bg-white">
       <NavbarBrand>
         <Link href="/">
           <Image
