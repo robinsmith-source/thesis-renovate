@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Avatar,
   Button,
@@ -11,13 +12,11 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type { Session } from "next-auth";
+import NextImage from "next/image";
+import { useSession } from "next-auth/react";
 
 function LoginBar({ session }: { session: Session }) {
   return (
@@ -53,11 +52,11 @@ function LoginBar({ session }: { session: Session }) {
 
 import NextImage from "next/image";
 
-export default function MainNavbar({ session }: { session: Session | null }) {
-  const pathname = usePathname();
+export default function MainNavbar() {
+  const { data: session } = useSession();
 
   return (
-    <Navbar maxWidth="xl">
+    <Navbar maxWidth="xl" className="bg-white">
       <NavbarBrand>
         <Link href="/">
           <Image
@@ -83,7 +82,6 @@ export default function MainNavbar({ session }: { session: Session | null }) {
           </DropdownMenu>
         </Dropdown>
       </NavbarBrand>
-
 
       <NavbarContent as="div" justify="end">
         {session ? (
