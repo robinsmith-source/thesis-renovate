@@ -13,10 +13,10 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/react";
-import Link from "next/link";
+import NextLink from "next/link";
 import type { Session } from "next-auth";
-import NextImage from "next/image";
 import { useSession } from "next-auth/react";
+import NextImage from "next/image";
 
 function LoginBar({ session }: { session: Session }) {
   return (
@@ -33,16 +33,19 @@ function LoginBar({ session }: { session: Session }) {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">
-        <DropdownItem key="profile" className="h-14 gap-2">
+        <DropdownItem
+            key="profile" className="h-14 gap-2">
           <p className="font-semibold">
             Signed in as <br />
             {session.user.name}
           </p>
         </DropdownItem>
-        <DropdownItem key="settings" href={`/user/${session.user.id}`}>
+        <DropdownItem
+            as={NextLink} key="settings" href={`/user/${session.user.id}`}>
           My Profile
         </DropdownItem>
-        <DropdownItem key="logout" color="danger" href={"/api/auth/signout"}>
+        <DropdownItem
+            as={NextLink} key="logout" color="danger" href={"/api/auth/signout"}>
           Log Out
         </DropdownItem>
       </DropdownMenu>
@@ -56,15 +59,14 @@ export default function MainNavbar() {
   return (
     <Navbar maxWidth="xl" className="bg-white">
       <NavbarBrand>
-        <Link href="/">
-          <Image
-            as={NextImage}
+        <NextLink href="/">
+          <Image as={NextImage}
             width={50}
             height={50}
             src="/images/Logo_round_V2.png"
             alt="Logo"
           />
-        </Link>
+        </NextLink>
       </NavbarBrand>
 
       <NavbarContent as="div" justify="end">
@@ -73,7 +75,7 @@ export default function MainNavbar() {
         ) : (
           <NavbarItem>
             <Button
-              as={Link}
+              as={NextLink}
               color="secondary"
               href={"/api/auth/signin"}
               variant="flat"
