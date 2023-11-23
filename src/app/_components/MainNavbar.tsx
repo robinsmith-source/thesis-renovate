@@ -50,6 +50,8 @@ function LoginBar({ session }: { session: Session }) {
   );
 }
 
+
+
 export default function MainNavbar() {
   const { data: session } = useSession();
 
@@ -65,6 +67,20 @@ export default function MainNavbar() {
             alt="Logo"
           />
         </Link>
+        <Button href="/" as={Link} size="lg" variant="light">
+          Home
+        </Button>
+        <Dropdown>
+          <DropdownTrigger>
+            <Button size="lg" variant="light">
+              Explore
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Static Actions">
+          <DropdownItem key="Recipes" href="/recipes/public" as={Link}>Recipes</DropdownItem>
+          <DropdownItem key="Users" href="/users" as={Link}>Users</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </NavbarBrand>
 
       <NavbarContent as="div" justify="end">
