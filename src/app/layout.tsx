@@ -27,11 +27,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerAuthSession();
-
+  
   return (
-    <html lang="en">
+    //Currently there is no better solution than suppressing the error message: https://github.com/pacocoursey/next-themes/issues/169
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`font-sans ${inter.variable} min-h-screen bg-background text-foreground`}
+        className={`font-sans ${inter.variable} min-h-screen bg-background  text-foreground`}
       >
         <SessionProvider session={session}>
           <Providers>
