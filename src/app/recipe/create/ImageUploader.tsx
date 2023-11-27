@@ -1,19 +1,16 @@
 import { Button, Image } from "@nextui-org/react";
-import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { UploadButton } from "~/utils/uploadthing";
 
 export default function ImageUploader() {
-  const methods = useFormContext();
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const { control, watch, getValues } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
-    control: methods.control,
+    control: control,
     name: "images",
   });
-  const fieldState = methods.getFieldState("tags");
 
-  console.log(methods.watch());
+  console.log(watch());
 
   return (
     <div>
@@ -21,7 +18,7 @@ export default function ImageUploader() {
         <div>
           <Image
             key={image.id}
-            src={`https://utfs.io/f/${methods.getValues(`images.${index}`)}`}
+            src={`https://utfs.io/f/${getValues(`images.${index}`)}`}
           />
           <Button
             onClick={() => {

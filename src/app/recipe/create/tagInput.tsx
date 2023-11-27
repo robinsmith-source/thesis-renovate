@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
 export default function TagInput() {
-  const methods = useFormContext();
+  const { control, getValues, getFieldState } = useFormContext();
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const { fields, append, remove } = useFieldArray({
-    control: methods.control,
+    control: control,
     name: "tags",
   });
-  const fieldState = methods.getFieldState("tags");
+  const fieldState = getFieldState("tags");
 
   const [inputValue, setInputValue] = useState<string>("");
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +47,7 @@ export default function TagInput() {
 
   return (
     <Controller
-      control={methods.control}
+      control={control}
       name="tags"
       render={() => (
         <Input
@@ -73,7 +73,7 @@ export default function TagInput() {
                     variant="faded"
                     size="sm"
                   >
-                    {methods.getValues(`tags.${index}`)}
+                    {getValues(`tags.${index}`)}
                   </Chip>
                 ))}
               </div>
