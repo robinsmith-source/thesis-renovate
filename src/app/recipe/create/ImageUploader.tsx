@@ -10,7 +10,8 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { useUploadThing } from "~/app/lib/uploadthing";
-import { SetStateAction, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
+import type { SetStateAction } from "react";
 import { FaCircleXmark, FaCloudArrowUp } from "react-icons/fa6";
 import { api } from "~/trpc/react";
 import { CardHeader } from "@nextui-org/card";
@@ -29,7 +30,6 @@ export default function ImageUploader() {
     setFiles(acceptedFiles);
   }, []);
 
-  //TODO: Change this to toast notifications
   const { startUpload, isUploading, permittedFileInfo } = useUploadThing(
     "recipeImagesUploader",
     {
@@ -66,7 +66,7 @@ export default function ImageUploader() {
           <Progress isIndeterminate />
         </CardHeader>
       )}
-      <CardBody className="h-56 p-4">
+      <CardBody className="h-64 p-4">
         <div
           {...getRootProps()}
           className="flex h-full items-center justify-center rounded-xl border-2 border-dashed border-primary"
@@ -78,22 +78,28 @@ export default function ImageUploader() {
             <span className="text-xs font-light">(Image 4MB)</span>
           </p>
         </div>
-        {files.length > 0 && (
-          <Button onClick={() => startUpload(files)} className="mt-4">
-            Upload {files.length} selected file/s
-          </Button>
-        )}
+        <div className="flex justify-end">
+          {files.length > 0 && (
+            <Button
+              onClick={() => startUpload(files)}
+              className="mt-4 "
+              color="success"
+            >
+              Upload {files.length} selected file/s
+            </Button>
+          )}
+        </div>
       </CardBody>
       {fields.length > 0 && (
         <CardFooter>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap justify-center gap-2 p-1">
             {fields.map((image, index) => (
               <div
-                className=" group relative grid  place-items-center overflow-hidden rounded-large"
+                className="group relative grid place-items-center overflow-hidden rounded-large"
                 key={image.id}
               >
                 <Image
-                  className="h-32 w-32 object-cover transition group-hover:scale-110"
+                  className="aspect-video w-64 object-cover transition group-hover:scale-110"
                   alt={`Recipe image ${index}`}
                   src={`https://utfs.io/f/${getValues(`images.${index}`)}`}
                 />
