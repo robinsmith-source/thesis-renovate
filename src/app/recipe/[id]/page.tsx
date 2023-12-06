@@ -1,10 +1,11 @@
 import { api } from "~/trpc/server";
 import React from "react";
-import { Card, Chip, Image, Link } from "@nextui-org/react";
+import { Chip, Divider, Image } from "@nextui-org/react";
 import NextImage from "next/image";
 import { notFound } from "next/navigation";
 import RecipeStep from "./RecipeStep";
 import IngredientTable from "./IngredientTable";
+import RecipeAuthorSection from "~/app/recipe/[id]/RecipeAuthorSection";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const recipe = await api.recipe.get.query({ id: params.id });
@@ -23,12 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>
             )
           </h1>
-          <p>
-            created by{" "}
-            <Link color="secondary" href={`/user/${recipe.author.id}`}>
-              {recipe.author.name}
-            </Link>
-          </p>
+
           <div className="flex gap-2">
             {recipe.tags.map((tag) => (
               <Chip key={tag}>{tag}</Chip>
@@ -36,19 +32,20 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
           <p>{recipe.description}</p>
         </div>
-        <Card className="row-span-2 h-96 place-self-center">
-          <Image
-            as={NextImage}
-            width={500}
-            height={300}
-            removeWrapper
-            alt="recipe header"
-            className="z-0 h-full w-full object-cover"
-            src="https://placekitten.com/500/300"
-          />
-        </Card>
+
+        <Image
+          as={NextImage}
+          width={500}
+          height={300}
+          className="row-span-2 h-96 w-full place-self-center object-cover"
+          removeWrapper
+          alt="recipe header"
+          src="https://placekitten.com/500/300"
+        />
         <IngredientTable recipeSteps={recipe.steps} />
       </div>
+
+      <Divider className="my-4" />
 
       <div>
         <table>
@@ -64,6 +61,9 @@ export default async function Page({ params }: { params: { id: string } }) {
           </tbody>
         </table>
       </div>
+
+      <Divider className="my-4" />
+      <RecipeAuthorSection {...recipe.author} />
     </main>
   );
 }
