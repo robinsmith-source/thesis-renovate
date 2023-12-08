@@ -7,6 +7,7 @@ export default async function RecipeAuthorSection(recipeAuthor: UserType) {
     <div className="flex flex-col items-center justify-center gap-6">
       <h2 className="text-2xl font-semibold">Recipe created by</h2>
       <User
+        className="flex gap-4"
         name={
           <Link
             color="secondary"

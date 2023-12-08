@@ -1,6 +1,6 @@
 import { api } from "~/trpc/server";
 import React from "react";
-import { Card, Chip, Image, Link, Divider } from "@nextui-org/react";
+import { Chip, Image, Divider } from "@nextui-org/react";
 import NextImage from "next/image";
 import { notFound } from "next/navigation";
 import RecipeStep from "./RecipeStep";
@@ -24,12 +24,6 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>
             )
           </h1>
-          <p>
-            created by{" "}
-            <Link color="secondary" href={`/user/${recipe.author.id}`}>
-              {recipe.author.name}
-            </Link>
-          </p>
 
           <div className="my-2 flex gap-2">
             {recipe.labels.map((label) => (
