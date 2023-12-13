@@ -1,3 +1,5 @@
+import { TRPCClientError } from "@trpc/client";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import {
@@ -15,7 +17,21 @@ export const reviewRouter = createTRPCRouter({
         recipeId: z.string().cuid(),
       }),
     )
-    .mutation(({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
+      const existingReview = await ctx.db.recipeReview.findFirst({
+        where: {
+          recipeId: input.recipeId,
+          authorId: ctx.session.user.id,
+        },
+      });
+
+      if (existingReview) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "You have already reviewed this recipe",
+        });
+      }
+
       return ctx.db.recipeReview.create({
         data: {
           rating: input.rating,
@@ -50,13 +66,13 @@ export const reviewRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(
       z.object({
-        id: z.string().cuid(),
+        reviewId: z.string().cuid(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
       await ctx.db.recipeReview.delete({
         where: {
-          id: input.id,
+          id: input.reviewId,
           authorId: ctx.session.user.id,
         },
       });
