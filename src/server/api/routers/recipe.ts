@@ -25,7 +25,11 @@ export const recipeRouter = createTRPCRouter({
             },
           },
           labels: true,
-          author: true,
+          author: {
+            include: {
+              recipes: true,
+            },
+          },
         },
       });
     }),
