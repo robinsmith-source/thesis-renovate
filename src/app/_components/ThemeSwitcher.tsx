@@ -18,7 +18,7 @@ export default function ThemeSwitcher() {
         setTheme(switcherValue ? "dark" : "light");
       }}
       size="lg"
-      color="success"
+      color="default"
       startContent={<FaSun />}
       endContent={<FaMoon />}
     />

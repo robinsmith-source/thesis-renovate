@@ -35,6 +35,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
         <Image
           as={NextImage}
+          priority
           width={500}
           height={300}
           className="row-span-2 h-96 w-full place-self-center object-cover"
