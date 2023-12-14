@@ -1,7 +1,7 @@
 import { api } from "~/trpc/server";
-import RecipeCard from "~/app/_components/RecipeCard"
-import {Image, Input} from '@nextui-org/react';
-import NextImage from 'next/image';
+import RecipeCard from "~/app/_components/RecipeCard";
+import { Image, Input } from "@nextui-org/react";
+import NextImage from "next/image";
 
 export default async function Home() {
   const featuredRecipes = await api.recipe.getRecipesAdvanced.query({
