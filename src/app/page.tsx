@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <div className="mb-4">
+      <div className="mb-6 hidden md:block">
         {/* Goose chef logo */}
         <Image
           as={NextImage}
