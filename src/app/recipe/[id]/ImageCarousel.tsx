@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button, Card, Chip, Image, Link } from "@nextui-org/react";
+import { useState } from "react";
+import { Button, Card, Chip, Image } from "@nextui-org/react";
 import NextImage from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,7 +21,7 @@ export default function ImageCarousel({ images }: { images: string[] }) {
             as={NextImage}
             priority
             width={500}
-            height={300}
+            height={500}
             removeWrapper
             alt="recipe header"
             className="z-0 h-full w-full object-cover"
@@ -30,10 +30,10 @@ export default function ImageCarousel({ images }: { images: string[] }) {
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute bottom-10 right-10 z-10 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-        <Button size="sm" isDisabled={true}>
+      <div className="absolute bottom-10 right-10 z-10 flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+        <Chip size="sm">
           {imageIndex + 1}/{images.length}
-        </Button>
+        </Chip>
 
         <Button
           isDisabled={images.length < 2}
