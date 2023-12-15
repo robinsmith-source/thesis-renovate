@@ -93,12 +93,26 @@ export default function ReviewFormHandler({
   });
   return (
     <div>
+      {mode === Modes.CREATE || mode === Modes.EDIT ? (
+        <h2 className="text-2xl font-bold">
+          {mode === Modes.CREATE ? "Create" : "Edit"} Review
+        </h2>
+      ) : (
+        <h2 className="text-2xl font-bold">Your Review</h2>
+      )}
+
       {mode === Modes.CREATE && <ReviewForm submit={onCreate} formValue={{}} />}
       {mode === Modes.EDIT && submittedReview && (
         <ReviewForm submit={onEdit} formValue={submittedReview} />
       )}
       {mode === Modes.VIEW && submittedReview && (
-        <ReviewCard review={submittedReview} />
+        <ReviewCard
+          review={submittedReview}
+          handleEditClick={() => {
+            setMode(Modes.EDIT);
+            setSubmittedReview(myReviewQuery);
+          }}
+        />
       )}
     </div>
   );

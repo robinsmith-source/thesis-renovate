@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -8,24 +9,31 @@ import {
 } from "@nextui-org/react";
 import ReviewRating from "~/app/_components/ReviewRating";
 
-type RecipeCardProps = {
-  rating: number;
-  comment: string | null;
-} & {
-  author?: {
+type ReviewCardProps = {
+  review: {
     id: string;
-    name: string | null;
-    image: string | null;
+    rating: number;
+    comment: string | null;
+    author?: {
+      id: string;
+      name: string | null;
+      image: string | null;
+    };
   };
+  handleEditClick?: () => void;
 };
 
-export default function ReviewCard({ review }: { review: RecipeCardProps }) {
+export default function ReviewCard({
+  review,
+  handleEditClick,
+}: ReviewCardProps) {
   const { rating, comment, author } = review;
 
   return (
     <Card className="w-[36rem]">
       <CardHeader>
         <ReviewRating rating={rating} />
+        {handleEditClick && <Button onClick={handleEditClick}>Edit</Button>}
       </CardHeader>
       {comment && <CardBody>{comment}</CardBody>}
       {author && (
