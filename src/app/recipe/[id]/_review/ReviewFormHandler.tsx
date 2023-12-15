@@ -3,8 +3,8 @@ import { api } from "~/trpc/react";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import ReviewForm from "~/app/recipe/[id]/_review/ReviewForm";
-import ReviewCard from "~/app/recipe/[id]/_review/ReviewCard";
+import ReviewForm from "./ReviewForm";
+import ReviewCard from "./ReviewCard";
 
 enum Modes {
   CREATE,

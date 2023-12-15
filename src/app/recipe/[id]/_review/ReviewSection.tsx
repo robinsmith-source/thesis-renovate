@@ -1,6 +1,6 @@
 import { api } from "~/trpc/server";
-import ReviewFormHandler from "~/app/recipe/[id]/_review/ReviewFormHandler";
-import ReviewCard from "~/app/recipe/[id]/_review/ReviewCard";
+import ReviewFormHandler from "./ReviewFormHandler";
+import ReviewCard from "./ReviewCard";
 
 export default async function ReviewSection({
   recipeId,

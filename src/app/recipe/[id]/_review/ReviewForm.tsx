@@ -11,7 +11,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RatingInput from "./RatingInput";
 import { CardHeader } from "@nextui-org/card";
-import { RecipeReview } from ".prisma/client";
+import type { RecipeReview } from ".prisma/client";
 
 export default function ReviewForm({
   formValue,
