@@ -13,15 +13,11 @@ export default async function Page({ searchParams }: { searchParams?: any }) {
     name,
   });
 
-  const handleSearch = async (searchQuery: string) => {
-    console.log("searching for:  " + searchQuery);
-  };
-
   return (
     <main className="flex flex-col items-center">
       {/* Here should be the search component as a client component */}
       <RecipeSearchbar />
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {displayedRecipes ? (
           displayedRecipes.map((recipe: Recipe) => (
             <RecipeCard recipeId={recipe.id} key={recipe.id} />
