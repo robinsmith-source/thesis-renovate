@@ -92,6 +92,7 @@ export default function IngredientCreator({
                       selectedKeys={[field.value]}
                       isInvalid={!!fieldState.error}
                       errorMessage={fieldState.error?.message}
+                      isRequired
                     >
                       {[
                         "GRAM",
