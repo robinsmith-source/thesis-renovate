@@ -17,43 +17,41 @@ export const reviewRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.$transaction(async (tx) => {
-        const existingReview = await tx.recipeReview.findFirst({
-          where: {
-            recipeId: input.recipeId,
-            authorId: ctx.session.user.id,
-          },
+      const existingReview = await ctx.db.recipeReview.findFirst({
+        where: {
+          recipeId: input.recipeId,
+          authorId: ctx.session.user.id,
+        },
+      });
+
+      if (existingReview) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "You have already reviewed this recipe",
         });
+      }
 
-        if (existingReview) {
-          throw new TRPCError({
-            code: "CONFLICT",
-            message: "You have already reviewed this recipe",
-          });
-        }
+      const recipe = await ctx.db.recipe.findFirst({
+        where: {
+          id: input.recipeId,
+          authorId: ctx.session.user.id,
+        },
+      });
 
-        const recipe = await tx.recipe.findFirst({
-          where: {
-            id: input.recipeId,
-            authorId: ctx.session.user.id,
-          },
+      if (recipe) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You cannot review your own recipe",
         });
+      }
 
-        if (recipe) {
-          throw new TRPCError({
-            code: "FORBIDDEN",
-            message: "You cannot review your own recipe",
-          });
-        }
-
-        return ctx.db.recipeReview.create({
-          data: {
-            rating: input.rating,
-            comment: input.comment,
-            recipe: { connect: { id: input.recipeId } },
-            author: { connect: { id: ctx.session.user.id } },
-          },
-        });
+      return ctx.db.recipeReview.create({
+        data: {
+          rating: input.rating,
+          comment: input.comment,
+          recipe: { connect: { id: input.recipeId } },
+          author: { connect: { id: ctx.session.user.id } },
+        },
       });
     }),
 
@@ -135,6 +133,7 @@ export const reviewRouter = createTRPCRouter({
       });
     }),
 
+  //TODO: Should be done better when implementing delete functionality
   delete: protectedProcedure
     .input(
       z.object({
@@ -142,11 +141,19 @@ export const reviewRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.recipeReview.delete({
-        where: {
-          id: input.reviewId,
-          authorId: ctx.session.user.id,
-        },
-      });
+      try {
+        return await ctx.db.recipeReview.delete({
+          where: {
+            id: input.reviewId,
+            authorId: ctx.session.user.id,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+        new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong!",
+        });
+      }
     }),
 });
