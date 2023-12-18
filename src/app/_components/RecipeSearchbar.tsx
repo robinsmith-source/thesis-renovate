@@ -4,6 +4,7 @@ import { useState, type KeyboardEvent } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 type queryInput =
   | Partial<{
@@ -21,8 +22,11 @@ export default function RecipeSearchbar() {
   const pathname = usePathname();
   const { replace, push } = useRouter();
 
-  function handleSearch(searchFilters: queryInput) {
+  // debounce the search function to save resources
+  const handleSearch = useDebouncedCallback((searchFilters: queryInput) => {
     const params = new URLSearchParams(searchParams);
+
+    console.log("searchFilters: ", searchFilters);
 
     if (searchFilters) {
       const { name, difficulty, labels, tags, authorId } = searchFilters;
@@ -39,11 +43,11 @@ export default function RecipeSearchbar() {
     } else {
       replace(`${pathname}?${params.toString()}`);
     }
-  }
+  }, 300); // debounce time in ms
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
-      handleSearch({});
+      handleSearch(searchQuery);
     }
   }
 
