@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import ReviewForm from "./ReviewForm";
 import ReviewCard from "./ReviewCard";
-import { AnimatePresence, motion } from "framer-motion";
 
 enum Modes {
   CREATE,
@@ -41,7 +40,7 @@ export default function ReviewFormHandler({
     } else {
       setMode(Modes.CREATE);
     }
-  }, []);
+  }, [myReviewQuery]);
 
   const onCreate = (data: { rating: number; comment: string | null }) => {
     createMutation.mutate({
