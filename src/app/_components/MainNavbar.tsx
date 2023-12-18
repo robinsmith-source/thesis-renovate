@@ -76,7 +76,7 @@ export default function MainNavbar() {
   const { data: session } = useSession();
 
   return (
-    <Navbar maxWidth="xl" className="bg-white">
+    <Navbar maxWidth="xl" className="bg">
       <NavbarBrand>
         <NextLink href="/">
           <Image

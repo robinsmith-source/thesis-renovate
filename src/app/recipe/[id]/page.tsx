@@ -1,5 +1,5 @@
 import { api } from "~/trpc/server";
-import React from "react";
+
 import { Card, Chip, Divider, Image, Link } from "@nextui-org/react";
 import NextImage from "next/image";
 import { notFound } from "next/navigation";
@@ -7,6 +7,7 @@ import RecipeStep from "./RecipeStep";
 import IngredientTable from "./IngredientTable";
 import ReviewSection from "~/app/recipe/[id]/_review/ReviewSection";
 import { getServerAuthSession } from "~/server/auth";
+import ImageCarousel from "./ImageCarousel";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const recipe = await api.recipe.get.query({ id: params.id });
@@ -41,18 +42,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
           <p>{recipe.description}</p>
         </div>
-        <Card className="row-span-2 h-96 place-self-center">
-          <Image
-            as={NextImage}
-            priority
-            width={500}
-            height={300}
-            removeWrapper
-            alt="recipe header"
-            className="z-0 h-full w-full object-cover"
-            src="https://placekitten.com/500/300"
-          />
-        </Card>
+        <ImageCarousel images={recipe.images} />
         <IngredientTable recipeSteps={recipe.steps} />
       </div>
       <div>
