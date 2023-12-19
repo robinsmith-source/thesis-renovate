@@ -1,38 +1,30 @@
 import { Chip } from "@nextui-org/react";
 import { RecipeStepType } from "@prisma/client";
-import {
-  FaFireAlt,
-  FaHandPointRight,
-  FaHandSparkles,
-  FaRegClock,
-  FaUtensils,
-  FaUtensilSpoon,
-} from "react-icons/fa";
 
 export default function StepTypeChip({
   stepType,
 }: {
   stepType: RecipeStepType;
 }) {
-  let stepIcon = <></>;
+  let stepIcon = "";
   switch (stepType) {
     case RecipeStepType.REST:
-      stepIcon = <FaRegClock></FaRegClock>;
+      stepIcon = "Rest";
       break;
     case RecipeStepType.COOK:
-      stepIcon = <FaFireAlt></FaFireAlt>;
+      stepIcon = "Cook";
       break;
     case RecipeStepType.PREP:
-      stepIcon = <FaHandPointRight></FaHandPointRight>;
+      stepIcon = "Prep";
       break;
     case RecipeStepType.SERVE:
-      stepIcon = <FaUtensils></FaUtensils>;
+      stepIcon = "Serve";
       break;
     case RecipeStepType.MIX:
-      stepIcon = <FaUtensilSpoon></FaUtensilSpoon>;
+      stepIcon = "Mix";
       break;
     case RecipeStepType.SEASON:
-      stepIcon = <FaHandSparkles></FaHandSparkles>;
+      stepIcon = "Season";
       break;
   }
   return <Chip className="capitalize">{stepIcon}</Chip>;
