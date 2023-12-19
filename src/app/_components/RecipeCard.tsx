@@ -25,13 +25,13 @@ export default async function RecipeCard({ recipeId }: { recipeId: string }) {
         <p className="text-left text-white/90">{recipe.description}</p>
       </CardHeader>
       <Image
+        aria-label={recipe.name}
+        alt="Recipe Cover Image"
         removeWrapper
         as={NextImage}
         width={300}
         height={300}
         src={`https://utfs.io/f/${recipe.images[0]}`}
-        alt=""
-        aria-hidden
         className="z-0 h-full w-full bg-center object-cover brightness-[.60]"
       />
     </Card>
