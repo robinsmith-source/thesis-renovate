@@ -1,28 +1,34 @@
-import React from "react";
-import { api } from "~/trpc/server";
 import { Card, CardHeader } from "@nextui-org/card";
-import { Image } from "@nextui-org/react";
+import { CardFooter, Chip, Image } from "@nextui-org/react";
 import NextImage from "next/image";
 import NextLink from "next/link";
-import { notFound } from "next/navigation";
+import { RecipeDifficulty } from "@prisma/client";
+import Difficulty from "~/app/_components/Difficulty";
 
-export default async function RecipeCard({ recipeId }: { recipeId: string }) {
-  const recipe = await api.recipe.getRecipePreview.query({ id: recipeId });
+interface RecipeCardProps {
+  recipe: {
+    id: string;
+    name: string;
+    difficulty: RecipeDifficulty;
+    labels: {
+      name: string;
+    }[];
+    images: string[];
+  };
+}
 
-  if (!recipe) {
-    return notFound();
-  }
+export default async function RecipeCard({ recipe }: RecipeCardProps) {
   return (
     <Card
-      className="h-48 w-64"
+      className="h-48 w-72"
       isPressable
       isHoverable
       as={NextLink}
       href={`/recipe/${recipe.id}`}
     >
       <CardHeader className="absolute top-1 z-10 flex-col !items-start">
-        <h2 className="text-lg font-medium text-white">{recipe.name}</h2>
-        <p className="text-left text-white/90">{recipe.description}</p>
+        <h2 className="text-lg font-semibold text-white">{recipe.name}</h2>
+        <Difficulty difficulty={recipe.difficulty} />
       </CardHeader>
       <Image
         removeWrapper
@@ -34,6 +40,15 @@ export default async function RecipeCard({ recipeId }: { recipeId: string }) {
         aria-hidden
         className="z-0 h-full w-full bg-center object-cover brightness-[.60]"
       />
+      {recipe.labels && (
+        <CardFooter className="absolute bottom-1 z-10 flex gap-1">
+          {recipe.labels.slice(0, 3).map((label) => (
+            <Chip size="sm" key={label.name}>
+              {label.name}
+            </Chip>
+          ))}
+        </CardFooter>
+      )}
     </Card>
   );
 }

@@ -31,18 +31,6 @@ export const recipeRouter = createTRPCRouter({
       });
     }),
 
-  getRecipePreview: publicProcedure
-    .input(z.object({ id: z.string().cuid() }))
-    .query(({ input, ctx }) => {
-      return ctx.db.recipe.findFirst({
-        where: { id: input.id },
-        include: {
-          labels: true,
-          author: true,
-        },
-      });
-    }),
-
   getLatestRecipes: publicProcedure
     .input(z.object({ take: z.number().min(1).max(50) }))
     .query(({ ctx, input }) => {
@@ -52,6 +40,10 @@ export const recipeRouter = createTRPCRouter({
         take: input.take,
         select: {
           id: true,
+          name: true,
+          difficulty: true,
+          labels: { select: { name: true } },
+          images: true,
         },
       });
     }),
