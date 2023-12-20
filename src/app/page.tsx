@@ -2,7 +2,6 @@ import { api } from "~/trpc/server";
 import RecipeCard from "~/app/_components/RecipeCard";
 import { Image } from "@nextui-org/react";
 import NextImage from "next/image";
-import SimpleRecipeSearch from "~/app/_components/SimpleRecipeSearch";
 
 export default async function Home() {
   const featuredRecipes = await api.recipe.getRecipesAdvanced.query({
@@ -21,9 +20,6 @@ export default async function Home() {
           alt="Logo"
           className="mb-2 h-24 w-24 object-contain"
         />
-      </div>
-      <div className="mb-4 w-full md:w-1/2">
-        <SimpleRecipeSearch />
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {featuredRecipes ? (
