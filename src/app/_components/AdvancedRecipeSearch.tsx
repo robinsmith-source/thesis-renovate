@@ -6,6 +6,7 @@ import {
   AccordionItem,
   Autocomplete,
   AutocompleteItem,
+  AutocompleteSection,
   Tab,
   Tabs,
   Input,
@@ -26,9 +27,9 @@ type queryInput =
   | undefined;
 
 export default function AdvancedRecipeSearch({
-  labels,
+  allLabels = [],
 }: {
-  labels?: string[];
+  allLabels?: { name: string; category: string }[];
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -38,6 +39,9 @@ export default function AdvancedRecipeSearch({
   const [searchQuery, setSearchQuery] = useState<queryInput>();
   const [selectedSearchMode, setSelectedSearchMode] = useState("public");
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+
+  //const allLabelNames: string[] = allLabels.map((label) => label.name);
+  //const allLabelCategories: string[] = allLabels.map((label) => label.category);
 
   const handleSearch = useDebouncedCallback(
     (searchFilters: queryInput) => {
@@ -103,53 +107,48 @@ export default function AdvancedRecipeSearch({
               startContent={<FaTag />}
               placeholder="add any number"
               multiple
-              onInputChange={(selectedLabels: string) => {
+              onInputChange={(selectedLabelName: string) => {
                 if (
-                  selectedLabels &&
-                  labels?.includes(selectedLabels) &&
-                  !selectedLabels.includes(selectedLabels)
+                  selectedLabelName &&
+                  allLabels.some((label) => label.name === selectedLabelName) &&
+                  !selectedLabels.includes(selectedLabelName)
                 ) {
                   setSearchQuery((prevQuery) => ({
                     ...prevQuery,
-                    labels: [...(prevQuery?.labels || []), selectedLabels],
+                    labels: [...(prevQuery?.labels ?? []), selectedLabelName],
                   }));
 
                   setSelectedLabels((prevLabels) => [
                     ...prevLabels,
-                    selectedLabels,
+                    selectedLabelName,
                   ]);
                   handleSearch({
                     ...searchQuery,
-                    labels: [...(searchQuery?.labels || []), selectedLabels],
+                    labels: [...(searchQuery?.labels ?? []), selectedLabelName],
                   });
                 }
               }}
             >
-              {
-                // this is to please TypeScript
-                (labels || []).map((label) => (
-                  <AutocompleteItem key={label}>{label}</AutocompleteItem>
-                ))
-              }
+              {}
             </Autocomplete>
-            {/* Display the selected labels as a chip list */}
-            <div className="flex flex-row flex-wrap items-center justify-start">
-              {selectedLabels.map((label) => (
-                <Chip
-                  key={label}
-                  color="secondary"
-                  variant="flat"
-                  className="m-1"
-                  onClose={() => {
-                    setSelectedLabels((prevLabels) =>
-                      prevLabels.filter((prevLabel) => prevLabel !== label),
-                    );
-                  }}
-                >
-                  {label}
-                </Chip>
-              ))}
-            </div>
+          </div>
+          {/* Display the selected labels as a chip list */}
+          <div className="flex flex-row flex-wrap items-center justify-start">
+            {selectedLabels.map((label) => (
+              <Chip
+                key={label}
+                color="secondary"
+                variant="flat"
+                className="m-1"
+                onClose={() => {
+                  setSelectedLabels((prevLabels) =>
+                    prevLabels.filter((prevLabel) => prevLabel !== label),
+                  );
+                }}
+              >
+                {label}
+              </Chip>
+            ))}
           </div>
         </AccordionItem>
       </Accordion>
