@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Accordion, AccordionItem, Button, Input } from "@nextui-org/react";
 import { FaFilter, FaMagnifyingGlass } from "react-icons/fa6";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -15,7 +15,7 @@ type queryInput =
     }>
   | undefined;
 
-export default function AdvancedRecipeSearch() {
+export default function Search() {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -36,34 +36,38 @@ export default function AdvancedRecipeSearch() {
     }
     router.replace(`${pathname}?${params.toString()}`);
   }
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearch(searchQuery);
+    }
+  };
 
   return (
     <>
-      <div className="flex w-full">
-        <Input
-          type="text"
-          defaultValue={searchParams.get("name")?.toString()}
-          placeholder="Search recipes..."
-          onChange={(event) => {
-            setSearchQuery((prevQuery) => ({
-              ...prevQuery,
-              name: event.target.value,
-            }));
-          }}
-          endContent={
-            <Button
-              color="success"
-              onClick={() => handleSearch(searchQuery)}
-              endContent={
-                <FaMagnifyingGlass className="hidden md:flex" size={20} />
-              }
-            >
-              Search
-            </Button>
-          }
-        />
-      </div>
-      <Accordion isCompact>
+      <Input
+        type="text"
+        defaultValue={searchParams.get("name")?.toString()}
+        placeholder="Search recipes..."
+        onChange={(event) => {
+          setSearchQuery((prevQuery) => ({
+            ...prevQuery,
+            name: event.target.value,
+          }));
+        }}
+        onKeyDown={handleInputKeyDown}
+        endContent={
+          <Button
+            color="success"
+            onClick={() => handleSearch(searchQuery)}
+            endContent={
+              <FaMagnifyingGlass className="hidden md:flex" size={20} />
+            }
+          >
+            Search
+          </Button>
+        }
+      />
+      <Accordion className="mt-0" isCompact>
         <AccordionItem
           startContent={<FaFilter />}
           title="Advanced"
