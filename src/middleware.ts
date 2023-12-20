@@ -1,11 +1,22 @@
-import { withAuth } from "next-auth/middleware";
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 
-export default withAuth({
-  // Matches the pages config in `[...nextauth]`
-  pages: {
-    signIn: "/auth/signin",
-    error: "/auth/signin", // Error code passed in query string as ?error=
-  },
-});
+export default async function middleware(req: NextRequest, res: NextResponse) {
+  const token = await getToken({ req });
+  const isAuthenticated = !!token;
 
-export const config = { matcher: ["/recipe/create", "/recipe/:id/edit"] };
+  if (req.nextUrl.pathname.startsWith("/auth/signin") && isAuthenticated) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  if (req.nextUrl.pathname.startsWith("/recipe/create") && !isAuthenticated) {
+    return NextResponse.redirect(new URL("/auth/signin", req.url));
+  }
+
+  if (
+    req.nextUrl.pathname.match(/^\/recipe\/[^\/]+\/edit/) &&
+    !isAuthenticated
+  ) {
+    return NextResponse.rewrite(new URL("/auth/signin", req.url));
+  }
+}
