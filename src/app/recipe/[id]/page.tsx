@@ -22,9 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <div className="flex items-center gap-x-2">
-            <h1 className="flex items-center gap-2 text-2xl font-bold">
-              {recipe.name}
-            </h1>
+            <h1 className="text-2xl font-bold">{recipe.name}</h1>
 
             <span className="capitalize">
               ({recipe.difficulty.toLowerCase()})
