@@ -55,7 +55,6 @@ function LoginBar({ session }: { session: Session }) {
           as={NextLink}
           key="create-recipe"
           href={`/recipe/create`}
-          scroll={false}
         >
           Create Recipe
         </DropdownItem>

@@ -1,12 +1,13 @@
-import { api } from "~/trpc/server";
-import { Button, Link, Chip } from "@nextui-org/react";
+import { Button, Chip, Divider, Link } from "@nextui-org/react";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
-import RecipeStep from "./RecipeStep";
-import IngredientTable from "./IngredientTable";
-import ImageCarousel from "./ImageCarousel";
-import { getServerAuthSession } from "~/server/auth";
 import { FaPenToSquare } from "react-icons/fa6";
+import ReviewSection from "~/app/recipe/[id]/_review/ReviewSection";
+import { getServerAuthSession } from "~/server/auth";
+import { api } from "~/trpc/server";
+import ImageCarousel from "./ImageCarousel";
+import IngredientTable from "./IngredientTable";
+import RecipeStep from "./RecipeStep";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const recipe = await api.recipe.get.query({ id: params.id });
@@ -58,7 +59,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         <ImageCarousel images={recipe.images} />
         <IngredientTable recipeSteps={recipe.steps} />
       </div>
-
       <div>
         <table>
           <thead>
@@ -78,6 +78,13 @@ export default async function Page({ params }: { params: { id: string } }) {
           <Chip key={tag}>#{tag}</Chip>
         ))}
       </div>
+      <Divider className="my-4" />
+      <ReviewSection
+        recipeId={recipe.id}
+        hideReviewForm={
+          recipe.author.id === session?.user.id || session == null
+        }
+      />
     </main>
   );
 }
