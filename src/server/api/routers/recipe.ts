@@ -32,12 +32,33 @@ export const recipeRouter = createTRPCRouter({
       });
     }),
 
-  getLatestRecipes: publicProcedure
-    .input(z.object({ take: z.number().min(1).max(50) }))
+  getRecipeCards: publicProcedure
+    .input(
+      z.object({
+        take: z.number().min(1).max(50),
+        skip: z.number().min(0).optional(),
+        orderBy: z.enum(["NEWEST", "OLDEST"]).optional(),
+        authorId: z.string().cuid().optional(),
+        tags: z.array(z.string()).optional(),
+      }),
+    )
     .query(({ ctx, input }) => {
       return ctx.db.recipe.findMany({
-        orderBy: { createdAt: "desc" },
-        where: {},
+        orderBy: (() => {
+          switch (input.orderBy) {
+            case "NEWEST":
+              return { createdAt: "desc" };
+            case "OLDEST":
+              return { createdAt: "asc" };
+            default:
+              return { createdAt: "desc" };
+          }
+        })(),
+        where: {
+          authorId: input.authorId,
+          tags: { hasEvery: input.tags },
+        },
+        skip: input.skip ?? 0,
         take: input.take,
         select: {
           id: true,

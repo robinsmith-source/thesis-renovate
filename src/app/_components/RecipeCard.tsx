@@ -6,6 +6,7 @@ import { RecipeDifficulty } from "@prisma/client";
 import Difficulty from "~/app/_components/Difficulty";
 
 interface RecipeCardProps {
+  className?: string;
   recipe: {
     id: string;
     name: string;
@@ -17,10 +18,11 @@ interface RecipeCardProps {
   };
 }
 
-export default function RecipeCard({ recipe }: RecipeCardProps) {
+export default function RecipeCard(props: RecipeCardProps) {
+  const { className, recipe } = props;
   return (
     <Card
-      className="group h-48 w-full sm:w-72"
+      className={`${className} group h-48 w-full sm:w-[17rem]`}
       isPressable
       isHoverable
       as={NextLink}
@@ -30,6 +32,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         <h2 className="text-lg font-semibold text-white">{recipe.name}</h2>
         <Difficulty difficulty={recipe.difficulty} />
       </CardHeader>
+
       <Image
         removeWrapper
         as={NextImage}
@@ -40,6 +43,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         aria-hidden
         className="z-0 h-full w-full bg-center object-cover brightness-[.60] transition duration-200 ease-in-out group-hover:scale-110"
       />
+
       {recipe.labels && (
         <CardFooter className="absolute bottom-1 z-10 flex gap-1">
           {recipe.labels.slice(0, 3).map((label) => (
