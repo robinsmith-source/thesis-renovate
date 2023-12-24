@@ -105,7 +105,7 @@ export default withUt({
         dark: {
           colors: {
             background: "#141414",  // this is the default background color
-            foreground: "##d9d9d9", // use this for text
+            foreground: "#d9d9d9", // use this for text
             primary: {              // use this for the most important interaction elements
               "50": "#f1fee7",
               "100": "#dffbcc",
