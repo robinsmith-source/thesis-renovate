@@ -10,7 +10,7 @@ import {
   Chip,
 } from "@nextui-org/react";
 import { FaTag } from "react-icons/fa6";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type Label = {
   name: string;
@@ -30,12 +30,15 @@ export default function FilterAccordion({
   labels?: Label[];
   categories?: LabelCategory[];
 }) {
+  const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [labelInput, setLabelInput] = useState<string[]>([]);
 
   function handleLabelFilter(selectedLabels: string[]) {
     const params = new URLSearchParams(searchParams);
     selectedLabels && params.set("labels", selectedLabels.join());
+    router.replace(`${pathname}?${params.toString()}`);
   }
 
   return (

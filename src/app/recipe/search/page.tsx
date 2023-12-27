@@ -16,25 +16,42 @@ type LabelCategory = {
   name: string;
 };
 
-interface SearchParams {
+
+type urlParams = {
+  name?: string;
+  labels?: string;
+};
+
+type apiParams = {
+  take?: number;
+  skip?: number;
   name?: string;
   difficulty?: "EASY" | "MEDIUM" | "HARD" | "EXPERT";
-  tags?: string[];
   labels?: string[];
+  tags?: string;
   author?: string;
-}
+  orderByName?: "NEWEST" | "OLDEST";
+  groupBy?: "NONE" | "LABELS";
+};
+
+// Helper function to create api parameters
+const createQueryParameters = (params: urlParams) => {
+  const { name, labels } = params;
+  const queryParameters: apiParams = { take: 20 };
+
+  if (name) queryParameters.name = name;
+  if (labels) queryParameters.labels = labels.split(",");
+
+  return queryParameters;
+};
 
 
-export default async function Page({ searchParams }: { searchParams?: SearchParams }) {
+export default async function Page({ searchParams }: { searchParams?: urlParams }) {
   const prisma = new PrismaClient();
-  const { name, labels } = searchParams ?? {};
+  const queryParameters = createQueryParameters(searchParams ?? {});
 
-  //query gets adjusted with the information provided from the client component --> as search query
-  const displayedRecipes = await api.recipe.getRecipesAdvanced.query({
-    take: 20,
-    name: name,
-    labels: labels,
-  });
+  //api query gets adjusted with the information provided from the client component
+  const displayedRecipes = await api.recipe.getRecipesAdvanced.query(queryParameters);
 
   //get all labels from the database for the searchbar autocompletion
   const allLabelNames: Label[] = await prisma.recipeLabel.findMany({
