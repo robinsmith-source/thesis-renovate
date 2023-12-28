@@ -9,21 +9,22 @@ export default withUt({
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend:{ colors: {
-      accent: {
-        "50": '#fff4e5',
-        "100": '#ffeacc',
-        "200": '#ffd599',
-        "300": '#ffbf66',
-        "400": '#ffaa33',
-        "500": '#ff9500',
-        "600": '#cc7700',
-        "700": '#995900',
-        "800": '#663c00',
-        "900": '#331e00',
-        DEFAULT: "#ff9500"
+    extend: {
+      colors: {
+        accent: {
+          "50": "#fff4e5",
+          "100": "#ffeacc",
+          "200": "#ffd599",
+          "300": "#ffbf66",
+          "400": "#ffaa33",
+          "500": "#ff9500",
+          "600": "#cc7700",
+          "700": "#995900",
+          "800": "#663c00",
+          "900": "#331e00",
+          DEFAULT: "#ff9500",
+        },
       },
-    },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
@@ -111,6 +112,7 @@ export default withUt({
               "700": "#AE5E02",
               "800": "#8C4601",
               "900": "#743600",
+              DEFAULT: "#F29704",
             },
             danger: {
               "50": "#FFEFE7",
@@ -169,16 +171,16 @@ export default withUt({
               DEFAULT: "#55cb1a",
             },
             secondary: {
-              "50": '#f6eafb',
-              "100": '#edd5f6',
-              "200": '#daabed',
-              "300": '#c881e4',
-              "400": '#b657db',
-              "500": '#a32dd2',
-              "600": '#8324a8',
-              "700": '#621b7e',
-              "800": '#411254',
-              "900": '#21092a',
+              "50": "#f6eafb",
+              "100": "#edd5f6",
+              "200": "#daabed",
+              "300": "#c881e4",
+              "400": "#b657db",
+              "500": "#a32dd2",
+              "600": "#8324a8",
+              "700": "#621b7e",
+              "800": "#411254",
+              "900": "#21092a",
               DEFAULT: "#55176D",
             },
             success: {
@@ -205,6 +207,7 @@ export default withUt({
               "700": "#A95329",
               "800": "#88381A",
               "900": "#70250F",
+              DEFAULT: "#EB9653",
             },
             danger: {
               "50": "#FDF0E7",
