@@ -34,7 +34,7 @@ type apiParams = {
   groupBy?: "NONE" | "LABELS";
 };
 
-// Helper function to create api parameters
+// function to create api parameters
 const createQueryParameters = (params: urlParams) => {
   const { name, labels } = params;
   const queryParameters: apiParams = { take: 20 };
