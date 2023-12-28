@@ -38,13 +38,19 @@ export default function ImageUploader() {
           append(file.key);
         });
         setFiles([]);
-        toast.success("Upload completed");
+        toast.success("Upload completed", {
+          id: "imageUpload",
+        });
       },
       onUploadError: () => {
-        toast.error("Error occurred while uploading");
+        toast.error("Error occurred while uploading", {
+          id: "imageUpload",
+        });
       },
       onUploadBegin: () => {
-        toast.loading("Upload has begun");
+        toast.loading("Upload has begun", {
+          id: "imageUpload",
+        });
       },
     },
   );
@@ -86,8 +92,8 @@ export default function ImageUploader() {
             {files.length === 0
               ? "Select Files"
               : files.length === 1
-              ? `Upload ${files.length} selected file`
-              : `Upload ${files.length} selected files`}
+                ? `Upload ${files.length} selected file`
+                : `Upload ${files.length} selected files`}
           </Button>
         </div>
       </CardBody>
