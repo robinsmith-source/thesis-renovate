@@ -1,10 +1,14 @@
-import { api } from "~/trpc/server";
-import React from "react";
-import { Chip, Image, Divider } from "@nextui-org/react";
-import NextImage from "next/image";
+import { Button, Chip, Divider } from "@nextui-org/react";
+import NextLink from "next/link";
 import { notFound } from "next/navigation";
-import RecipeStep from "./RecipeStep";
+import { FaPenToSquare } from "react-icons/fa6";
+import ReviewSection from "~/app/recipe/[id]/_review/ReviewSection";
+import { auth } from "auth";
+import { api } from "~/trpc/server";
+import ImageCarousel from "./ImageCarousel";
 import IngredientTable from "./IngredientTable";
+import React from "react";
+import RecipeStep from "./RecipeStep";
 import RecipeAuthorSection from "./RecipeAuthorSection";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -13,17 +17,30 @@ export default async function Page({ params }: { params: { id: string } }) {
     notFound();
   }
 
+  const session = await auth();
+
   return (
     <main>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <h1 className="text-2xl font-bold">
-            {recipe.name} (
+          <div className="flex items-center gap-x-2">
+            <h1 className="text-2xl font-bold">{recipe.name}</h1>
+
             <span className="capitalize">
-              {recipe.difficulty.toLowerCase()}
+              ({recipe.difficulty.toLowerCase()})
             </span>
-            )
-          </h1>
+
+            {recipe.authorId === session?.user?.id && (
+              <Button
+                isIconOnly
+                as={NextLink}
+                color="secondary"
+                href={`${params.id}/edit`}
+              >
+                <FaPenToSquare />
+              </Button>
+            )}
+          </div>
 
           <div className="my-2 flex gap-2">
             {recipe.labels.map((label) => (
@@ -32,22 +49,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
           <p>{recipe.description}</p>
         </div>
-
-        <Image
-          as={NextImage}
-          priority
-          width={500}
-          height={300}
-          className="row-span-2 h-96 w-full place-self-center object-cover"
-          removeWrapper
-          alt="recipe header"
-          src="https://placekitten.com/500/300"
-        />
+        
+        <ImageCarousel images={recipe.images} />
         <IngredientTable recipeSteps={recipe.steps} />
       </div>
-
-      <Divider className="my-4" />
-
+      
       <div>
         <table>
           <thead>
@@ -70,6 +76,14 @@ export default async function Page({ params }: { params: { id: string } }) {
 
       <Divider className="my-4" />
       <RecipeAuthorSection currentRecipeId={params.id} recipeAuthor={recipe.author} />
+   
+      <Divider className="my-4" />
+      <ReviewSection
+        recipeId={recipe.id}
+        hideReviewForm={
+          recipe.author.id === session?.user?.id || session == null
+        }
+      />
     </main>
   );
 }

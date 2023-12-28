@@ -1,41 +1,80 @@
-import React from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import {
   Button,
   Card,
   CardBody,
+  CardHeader,
+  Divider,
   Input,
   Select,
   SelectItem,
   Textarea,
 } from "@nextui-org/react";
 import type { RecipeStepType } from "@prisma/client";
+import { motion } from "framer-motion";
 
 import IngredientCreator from "./IngredientCreator";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 export default function StepCreator() {
   const { control } = useFormContext();
-
-  const { fields, append, remove } = useFieldArray({
+  const { fields, swap, append, remove } = useFieldArray({
     control,
     name: "steps",
   });
-
   return (
-    <>
-      <div className="ml-8 space-y-4">
-        <div className="flex gap-2">
-          <div className="text-lg">Steps</div>
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => append({ description: "" })}
-          >
-            Add Step
-          </Button>
-        </div>
-        {fields.map((step, index) => (
-          <Card key={step.id}>
+    <div className="ml-8 space-y-4">
+      <div className="flex gap-2">
+        <h2 className="text-lg">Steps</h2>
+        <Button
+          type="button"
+          size="sm"
+          onClick={() => append({ description: "" })}
+        >
+          Add Step
+        </Button>
+      </div>
+      {fields.map((step, index) => (
+        <motion.div
+          key={step.id}
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: "spring", bounce: 0.2 }}
+        >
+          <Card>
+            <CardHeader className="flex justify-between">
+              <div className="flex items-start gap-2">
+                <Button
+                  isDisabled={index === 0}
+                  isIconOnly
+                  startContent={<FaChevronUp />}
+                  size="sm"
+                  onClick={() => index > 0 && swap(index, index - 1)}
+                />
+                <Button
+                  isDisabled={index === fields.length - 1}
+                  isIconOnly
+                  startContent={<FaChevronDown />}
+                  size="sm"
+                  onClick={() =>
+                    index < fields.length - 1 && swap(index, index + 1)
+                  }
+                />
+              </div>
+
+              <Button
+                className="place-self-stretch"
+                color="danger"
+                type="button"
+                variant="flat"
+                size="sm"
+                onClick={() => remove(index)}
+              >
+                Remove Step
+              </Button>
+            </CardHeader>
             <CardBody>
               <div className="grid grid-cols-[4fr_2fr] gap-x-2">
                 <Controller
@@ -63,7 +102,7 @@ export default function StepCreator() {
                         field.onChange(+event.target.value);
                       }}
                       type="number"
-                      label="Duration"
+                      label="Duration (in minutes)"
                       variant="bordered"
                       isRequired
                       size="sm"
@@ -83,10 +122,10 @@ export default function StepCreator() {
                       label="Step Type"
                       variant="bordered"
                       selectedKeys={[field.value]}
-                      defaultSelectedKeys={["PREP"]}
                       size="sm"
                       isInvalid={!!fieldState.error}
                       errorMessage={fieldState.error?.message}
+                      disallowEmptySelection={true}
                     >
                       {["PREP", "COOK", "REST", "SEASON", "SERVE", "MIX"].map(
                         (stepType) => (
@@ -95,7 +134,7 @@ export default function StepCreator() {
                             value={stepType as RecipeStepType}
                             className="capitalize"
                           >
-                            {stepType}
+                            {stepType[0] + stepType.slice(1).toLowerCase()}
                           </SelectItem>
                         ),
                       )}
@@ -103,24 +142,12 @@ export default function StepCreator() {
                   )}
                 />
               </div>
-              <div className="flex justify-end py-2">
-                <Button
-                  className="place-self-stretch"
-                  color="danger"
-                  type="button"
-                  variant="flat"
-                  size="sm"
-                  onClick={() => remove(index)}
-                >
-                  Remove Step
-                </Button>
-              </div>
-
+              <Divider className="my-4" />
               <IngredientCreator stepIndex={index} />
             </CardBody>
           </Card>
-        ))}
-      </div>
-    </>
+        </motion.div>
+      ))}
+    </div>
   );
 }
