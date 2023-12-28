@@ -41,9 +41,22 @@ export const recipeRouter = createTRPCRouter({
         authorId: z.string().cuid().optional(),
         notAuthorId: z.string().cuid().optional(),
         tags: z.array(z.string()).optional(),
+        labels: z.array(z.string()).optional(),
       }),
     )
     .query(({ ctx, input }) => {
+      function createLabelQuery(labels: string[]) {
+        return {
+          AND: labels.map((label) => ({
+            labels: {
+              some: {
+                name: label,
+              },
+            },
+          })),
+        };
+      }
+
       return ctx.db.recipe.findMany({
         orderBy: (() => {
           switch (input.orderBy) {
@@ -59,6 +72,7 @@ export const recipeRouter = createTRPCRouter({
           ...(input.authorId && { authorId: input.authorId }),
           ...(input.notAuthorId && { authorId: { not: input.notAuthorId } }),
           tags: { hasEvery: input.tags },
+          ...(input.labels && createLabelQuery(input.labels)),
         },
         skip: input.skip ?? 0,
         take: input.take,
