@@ -84,7 +84,7 @@ async function seedRecipeLabels() {
 }
 
 async function seedUserRecipes() {
-  +(await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: "testUser@example.com" },
     update: {},
     create: {
@@ -1166,7 +1166,7 @@ async function seedUserRecipes() {
         ],
       },
     },
-  }));
+  });
 }
 
 main()
