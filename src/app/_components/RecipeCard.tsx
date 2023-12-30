@@ -5,21 +5,23 @@ import NextLink from "next/link";
 import { RecipeDifficulty } from "@prisma/client";
 import Difficulty from "~/app/_components/Difficulty";
 
-interface RecipeCardProps {
-  className?: string;
-  recipe: {
-    id: string;
+export type RecipeCardProps = {
+  id: string;
+  name: string;
+  difficulty: RecipeDifficulty;
+  labels: {
     name: string;
-    difficulty: RecipeDifficulty;
-    labels: {
-      name: string;
-    }[];
-    images: string[];
-  };
-}
+  }[];
+  images: string[];
+};
 
-export default function RecipeCard(props: RecipeCardProps) {
-  const { className, recipe } = props;
+export default function RecipeCard({
+  className,
+  recipe,
+}: {
+  className?: string;
+  recipe: RecipeCardProps;
+}) {
   return (
     <Card
       className={`${className} group h-48 w-full sm:w-[17rem]`}
