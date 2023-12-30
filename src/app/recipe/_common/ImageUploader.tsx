@@ -66,13 +66,13 @@ export default function ImageUploader() {
   });
 
   return (
-    <Card className="col-span-2">
+    <Card className="col-span-2 shadow-sm">
       {isUploading && (
         <CardHeader>
           <Progress isIndeterminate aria-label="Loading..." />
         </CardHeader>
       )}
-      <CardBody className="h-64 p-4">
+      <CardBody className="h-64 bg-default-100 p-4">
         <div
           {...getRootProps()}
           className="flex h-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-primary"
@@ -86,7 +86,9 @@ export default function ImageUploader() {
           <Button
             isDisabled={files.length === 0}
             onPress={() => startUpload(files)}
-            className="mt-4 "
+            className={`mt-4 ${
+              files.length === 0 ? "opacity-0" : "opacity-100"
+            }`}
             color="success"
           >
             {files.length === 0
@@ -98,7 +100,7 @@ export default function ImageUploader() {
         </div>
       </CardBody>
       {fields.length > 0 && (
-        <CardFooter>
+        <CardFooter className="bg-default-100">
           <div className="flex flex-wrap justify-center gap-2 p-1">
             {fields.map((image, index) => (
               <div
