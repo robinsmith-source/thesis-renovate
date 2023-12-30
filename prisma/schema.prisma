@@ -140,7 +140,7 @@ model RecipeStepIngredient {
   id           String     @id @default(cuid())
   name         String
   quantity     Float
-  unit         Unit?
+  unit         Unit
   recipeStep   RecipeStep @relation(fields: [recipeStepId], references: [id], onDelete: Cascade)
   recipeStepId String
 }

@@ -156,6 +156,7 @@ async function seedUserRecipes() {
                       {
                         name: "Eggs",
                         quantity: 2,
+                        unit: "PIECE"
                       },
                       {
                         name: "Parmesan",
@@ -256,6 +257,7 @@ async function seedUserRecipes() {
                       {
                         name: "Chicken Breasts",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Salt",
@@ -295,10 +297,12 @@ async function seedUserRecipes() {
                       {
                         name: "Cucumber",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Red Onion",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                     ],
                   },
@@ -378,10 +382,12 @@ async function seedUserRecipes() {
                       {
                         name: "Garlic cloves",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Onion",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Asparagus",
@@ -391,6 +397,7 @@ async function seedUserRecipes() {
                       {
                         name: "Bell Peppers",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Cherry Tomatoes",
@@ -516,14 +523,17 @@ async function seedUserRecipes() {
                       {
                         name: "Onions",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Carrots",
                         quantity: 3,
+                        unit: "PIECE",
                       },
                       {
                         name: "Celery",
                         quantity: 3,
+                        unit: "PIECE",
                       },
                     ],
                   },
@@ -558,6 +568,7 @@ async function seedUserRecipes() {
                       {
                         name: "Bay Leaves",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Worcestershire Sauce",
@@ -648,6 +659,7 @@ async function seedUserRecipes() {
                       {
                         name: "Garlic cloves",
                         quantity: 4,
+                        unit: "PIECE",
                       },
                       {
                         name: "Red Pepper Flakes",
@@ -731,6 +743,7 @@ async function seedUserRecipes() {
                       {
                         name: "Pizza Dough",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Tomato Sauce",
@@ -745,6 +758,7 @@ async function seedUserRecipes() {
                       {
                         name: "Tomato",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Fresh Basil Leaves",
@@ -842,6 +856,7 @@ async function seedUserRecipes() {
                       {
                         name: "Bell Peppers",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Broccoli Florets",
@@ -974,7 +989,11 @@ async function seedUserRecipes() {
                   ingredients: {
                     create: [
                       { name: "Sauce", quantity: 1, unit: "CUP" },
-                      { name: "Additional Ingredients", quantity: 1 },
+                      {
+                        name: "Additional Ingredients",
+                        quantity: 1,
+                        unit: "PIECE",
+                      },
                     ],
                   },
                 },
@@ -1008,7 +1027,9 @@ async function seedUserRecipes() {
                   stepType: "COOK",
                   duration: 5,
                   ingredients: {
-                    create: [{ name: "Whole-Grain Bread", quantity: 2 }],
+                    create: [
+                      { name: "Whole-Grain Bread", quantity: 2, unit: "PIECE" },
+                    ],
                   },
                 },
                 {
@@ -1017,7 +1038,9 @@ async function seedUserRecipes() {
                   stepType: "PREP",
                   duration: 5,
                   ingredients: {
-                    create: [{ name: "Ripe Avocado", quantity: 1 }],
+                    create: [
+                      { name: "Ripe Avocado", quantity: 1, unit: "PIECE" },
+                    ],
                   },
                 },
                 {
@@ -1026,7 +1049,7 @@ async function seedUserRecipes() {
                   stepType: "COOK",
                   duration: 4,
                   ingredients: {
-                    create: [{ name: "Eggs", quantity: 2 }],
+                    create: [{ name: "Eggs", quantity: 2, unit: "PIECE" }],
                   },
                 },
                 {
@@ -1062,9 +1085,17 @@ async function seedUserRecipes() {
                   duration: 10,
                   ingredients: {
                     create: [
-                      { name: "Cherry Tomatoes", quantity: 20 },
-                      { name: "Fresh Mozzarella Balls", quantity: 20 },
-                      { name: "Fresh Basil Leaves", quantity: 20 },
+                      { name: "Cherry Tomatoes", quantity: 20, unit: "PIECE" },
+                      {
+                        name: "Fresh Mozzarella Balls",
+                        quantity: 20,
+                        unit: "PIECE",
+                      },
+                      {
+                        name: "Fresh Basil Leaves",
+                        quantity: 20,
+                        unit: "PIECE",
+                      },
                       {
                         name: "Balsamic Glaze",
                         quantity: 1,
@@ -1100,7 +1131,7 @@ async function seedUserRecipes() {
                   ingredients: {
                     create: [
                       { name: "Hummus", quantity: 4, unit: "TABLESPOON" },
-                      { name: "Whole Wheat Wrap", quantity: 1 },
+                      { name: "Whole Wheat Wrap", quantity: 1, unit: "PIECE" },
                     ],
                   },
                 },
