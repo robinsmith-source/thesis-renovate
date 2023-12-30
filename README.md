@@ -4,22 +4,26 @@ This is our repository for our SE3 project implementing a recipe app.
 
 ## Setup
 ### Prerequisites
-- Install node
+- Install node >18
 - Install docker and docker-compose
 - Create a Discord application [here](https://discord.com/developers/applications)
   - Set the OAuth2 redirect URL to `http://localhost:3000/api/auth/callback/discord`
+- Create an uploadthing account [here](https://uploadthing.com/)
+  - Create a new application
 ### Setup
 - Clone the repository
 - Run `npm install` in the root directory
 - Copy the `.env.example` file to `.env` and fill in the values
   - `DATABASE_URL` is the connection string to the database, if you're using docker-compose leave it as is
-  - `NEXTAUTH_URL` is the url of the app, if you're using docker-compose leave it as is
-  - `DISCORD_CLIENT_ID` from the Discord application you created
-  - `DISCORD_CLIENT_SECRET` from the Discord application you created
+  - `AUTH_URL` is the url of the app, if you're using docker-compose leave it as is
+  - `AUTH_DISCORD_ID` from the Discord application you created
+  - `AUTH_DISCORD_SECRET` from the Discord application you created
+  - `UPLOADTHING_SECRET` from the uploadthing application you created
+  - `UPLOADTHING_APP_ID` from the uploadthing application you created
 
 ## Development
 - Run `docker-compose up -d` to start the database
-- Run `npm run db:push` to set up the database
+- Run `npm run db:reset` to set up the database
 - Run `npm run dev` to start the development server
 ### Database
 - If you're testing changes to the database, run `npm run db:push` to apply the changes to the database
@@ -30,6 +34,7 @@ This is our repository for our SE3 project implementing a recipe app.
 - WebStorm has built-in support for Prettier
   - Please enable it on save!
   - You can set it up in `Settings > Languages & Frameworks > JavaScript > Prettier`
+- VS Code requires a bit more setup, check out [this guide](https://www.robinwieruch.de/how-to-use-prettier-vscode/) for more info
 ### Committing
 - Make sure your code is formatted before committing
 - This project uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
