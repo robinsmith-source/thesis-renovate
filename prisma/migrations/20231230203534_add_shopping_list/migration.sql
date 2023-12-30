@@ -18,7 +18,7 @@ CREATE TABLE "ShoppingListItem" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "quantity" DOUBLE PRECISION NOT NULL,
-    "unit" "Unit",
+    "unit" "Unit" NOT NULL,
     "shoppingListId" TEXT NOT NULL,
 
     CONSTRAINT "ShoppingListItem_pkey" PRIMARY KEY ("id")

@@ -5,6 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
+import { equivalentUnits } from "~/utils/IngredientCalculator";
 
 export const shoppingListRouter = createTRPCRouter({
   create: protectedProcedure
@@ -68,7 +69,7 @@ export const shoppingListRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       await Promise.all(
         input.ingredients.map(async (ingredient) => {
-          return ctx.db.shoppingListItem.upsert({
+          const shoppingListItem = await ctx.db.shoppingListItem.upsert({
             where: {
               shoppingListId: input.shoppingListId,
               name_unit: {
@@ -86,6 +87,22 @@ export const shoppingListRouter = createTRPCRouter({
               },
             },
           });
+
+          const equivalentUnit = equivalentUnits.find(
+            ([smallUnit]) => smallUnit === shoppingListItem.unit,
+          );
+
+          if (equivalentUnit && shoppingListItem.quantity > 1000) {
+            await ctx.db.shoppingListItem.update({
+              where: {
+                id: shoppingListItem.id,
+              },
+              data: {
+                quantity: shoppingListItem.quantity / 1000,
+                unit: equivalentUnit[1],
+              },
+            });
+          }
         }),
       );
     }),

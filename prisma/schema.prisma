@@ -174,7 +174,7 @@ model ShoppingListItem {
   id          String     @id @default(cuid())
   name        String
   quantity    Float
-  unit        Unit?
+  unit        Unit
   shoppingList ShoppingList @relation(fields: [shoppingListId], references: [id], onDelete: Cascade)
   shoppingListId String
 

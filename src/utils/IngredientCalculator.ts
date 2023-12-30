@@ -6,7 +6,7 @@ export type Ingredient = {
   unit: Unit | null;
 };
 
-const equivalentUnits: [Unit, Unit][] = [
+export const equivalentUnits: [Unit, Unit][] = [
   ["GRAM", "KILOGRAM"],
   ["MILLILITER", "LITER"],
 ];
