@@ -5,9 +5,10 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
-export default function AdvancedRecipeSearch() {
+export default function AdvancedRecipeSearch(className?: string) { 
   const pathname = usePathname();
   const router = useRouter();
+  if (!className) className = "w-full";
 
   const searchParams = useSearchParams();
 
@@ -28,7 +29,7 @@ export default function AdvancedRecipeSearch() {
         placeholder="Search recipes..."
         onValueChange={handleSearch}
         endContent={<FaMagnifyingGlass />}
-        className="w-full"
+        className={className}
       />
   );
 }

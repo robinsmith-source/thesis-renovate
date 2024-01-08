@@ -15,9 +15,12 @@ export default function FilterAccordion({
   labels,
 }: {
   labels?: Label[];
-}) {
+}, className?: string) {
+
+  if (!className) className = "w-full mb-2";
+
   return (
-    <Accordion className="w-full mb-2" variant="light" hideIndicator>
+    <Accordion className={className} variant="light" hideIndicator>
       <AccordionItem key="filters" aria-label="filters" title="Search Filters">
         <div className="flex w-full flex-col flex-wrap items-start justify-start">
           <div className="flex w-full flex-row items-center justify-start">

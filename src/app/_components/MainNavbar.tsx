@@ -80,9 +80,9 @@ export default function MainNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const smMenuItems = [
     { name: "Home", href: "/" },
-    { name: "Explore Recipes", href: "/recipe/search" },
-    { name: "About(WIP)", href: "/about" },
-    { name: "Contact(WIP)", href: "/contact" },
+    { name: "Explore", href: "/explore" },
+    { name: "Recipes", href: "/recipe/search" },
+    { name: "Users", href: "/user/search" },
   ];
 
   return (
@@ -164,19 +164,25 @@ export default function MainNavbar() {
       </NavbarContent>
 
       <NavbarMenu>
-        {smMenuItems.map((item, index) => (
-          <NavbarMenuItem key={`${index}`}>
-            <Link
-              as={NextLink}
-              href={item.href}
-              className="w-full text-default-600"
-              size="lg"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.name}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        {smMenuItems.map((item, index) =>
+          item.name === "Explore" ? (
+            <NavbarMenuItem className="text-primary-400" key={`${index}`}>
+              <span>{item.name}</span>
+            </NavbarMenuItem>
+          ) : (
+            <NavbarMenuItem key={`${index}`}>
+              <Link
+                as={NextLink}
+                href={item.href}
+                className="w-full text-default-600"
+                size="lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            </NavbarMenuItem>
+          ),
+        )}
       </NavbarMenu>
     </Navbar>
   );

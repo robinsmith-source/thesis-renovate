@@ -24,10 +24,6 @@ type apiParams = {
   name?: string;
   difficulty?: "EASY" | "MEDIUM" | "HARD" | "EXPERT";
   labels?: string[];
-  tags?: string;
-  authorId?: string;
-  orderBy?: "NEWEST" | "OLDEST";
-  groupBy?: "NONE" | "LABELS";
 };
 
 // translate parameters

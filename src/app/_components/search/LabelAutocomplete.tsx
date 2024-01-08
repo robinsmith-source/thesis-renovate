@@ -17,11 +17,13 @@ type Label = {
   };
 };
 
-export default function DifficultyInput({ labels }: { labels?: Label[] }) {
+export default function DifficultyInput({ labels }: { labels?: Label[] }, className?: string) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  
   const [labelInput, setLabelInput] = useState<string[]>([]);
+  if (!className) className = "mb-4 mr-2 sm:mb-0 sm:w-1/3 md:w-1/4";
 
   // Extract unique categories from labels
   const uniqueCategories = Array.from(
@@ -38,7 +40,7 @@ export default function DifficultyInput({ labels }: { labels?: Label[] }) {
     <div className="ml-3 flex w-full flex-col flex-wrap items-center justify-start sm:flex-row">
       <Autocomplete
         size="sm"
-        className="mb-4 mr-2 sm:mb-0 sm:w-1/3 md:w-1/4"
+        className={className}
         startContent={<FaTag />}
         placeholder="Enter or select labels"
         onInputChange={(value: string) => {
