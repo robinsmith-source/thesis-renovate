@@ -35,6 +35,13 @@ export default function ReviewForm({
     },
   });
 
+  async function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    // if ctrl + enter is pressed, submit the form
+    if (event.ctrlKey && event.key === "Enter") {
+      await handleSubmit(submit)();
+    }
+  }
+
   return (
     <Card className="w-[36rem]">
       <CardHeader className="-mb-4">
@@ -58,6 +65,7 @@ export default function ReviewForm({
               {...field}
               minRows={3}
               label="Comment"
+              onKeyDown={handleKeyDown}
               placeholder="I really liked this recipe!"
               isInvalid={!!fieldState.error}
               errorMessage={fieldState.error?.message}
@@ -67,7 +75,7 @@ export default function ReviewForm({
         />
       </CardBody>
       <CardFooter className="-mt-4 flex justify-end">
-        <Button color="primary" onClick={handleSubmit(submit)}>
+        <Button color="success" onClick={handleSubmit(submit)}>
           Submit
         </Button>
       </CardFooter>

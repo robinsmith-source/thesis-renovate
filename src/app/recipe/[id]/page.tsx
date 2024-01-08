@@ -7,13 +7,14 @@ import { Button, Chip, Divider, Link } from "@nextui-org/react";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { FaPenToSquare } from "react-icons/fa6";
-import ReviewSection from "~/app/recipe/[id]/_review/ReviewSection";
+import ReviewSection from "./_review/ReviewSection";
 import { auth } from "auth";
 import { api } from "~/trpc/server";
 import ImageCarousel from "./ImageCarousel";
 import IngredientTable from "./IngredientTable";
 import RecipeAuthorSection from "./RecipeAuthorSection";
 import RecipeStep from "./RecipeStep";
+import RecipeDeleteHandler from "~/app/recipe/[id]/RecipeDeleteHandler";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const recipe = await api.recipe.get.query({ id: params.id });
@@ -22,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   const session = await auth();
-
+  console.log(recipe.images);
   return (
     <main>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -35,14 +36,17 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>
 
             {recipe.authorId === session?.user?.id && (
-              <Button
-                isIconOnly
-                as={NextLink}
-                color="secondary"
-                href={`${params.id}/edit`}
-              >
-                <FaPenToSquare />
-              </Button>
+              <>
+                <Button
+                  isIconOnly
+                  as={NextLink}
+                  color="secondary"
+                  href={`${params.id}/edit`}
+                >
+                  <FaPenToSquare />
+                </Button>
+                <RecipeDeleteHandler recipeId={recipe.id} />
+              </>
             )}
           </div>
 

@@ -9,12 +9,9 @@ const unitConversion = {
   TABLESPOON: "tbsp",
   CUP: "cups",
   PINCH: "pinch",
-  PIECE: "pc",
+  PIECE: "",
 };
 
-export function convertUnit(unit: Unit | null): string {
-  if (!unit) {
-    return "";
-  }
+export function convertUnit(unit: Unit): string {
   return unitConversion?.[unit] ?? "";
 }

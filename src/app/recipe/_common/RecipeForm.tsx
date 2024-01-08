@@ -60,25 +60,23 @@ export default function RecipeForm({
           z.object({
             name: z.string().min(1),
             quantity: z.number().min(1, "Quantity must be at least 1"),
-            unit: z
-              .enum(
-                [
-                  "GRAM",
-                  "KILOGRAM",
-                  "LITER",
-                  "MILLILITER",
-                  "TEASPOON",
-                  "TABLESPOON",
-                  "CUP",
-                  "PINCH",
-                  "PIECE",
-                ],
-                {
-                  required_error: "Unit is required",
-                  invalid_type_error: "Invalid unit",
-                },
-              )
-              .nullable(),
+            unit: z.enum(
+              [
+                "GRAM",
+                "KILOGRAM",
+                "LITER",
+                "MILLILITER",
+                "TEASPOON",
+                "TABLESPOON",
+                "CUP",
+                "PINCH",
+                "PIECE",
+              ],
+              {
+                required_error: "Unit is required",
+                invalid_type_error: "Invalid unit",
+              },
+            ),
           }),
         ),
       }),
@@ -149,7 +147,7 @@ export default function RecipeForm({
             name="description"
             render={({ fieldState }) => (
               <Textarea
-                className={"col-span-full"}
+                className={"col-span-full mb-2"}
                 minRows={2}
                 label="Recipe Description"
                 placeholder="My grandma used to make this pizza for me ..."
@@ -159,12 +157,13 @@ export default function RecipeForm({
               />
             )}
           />
+
+          <div className="col-span-2">
+            <TagInput />
+            <StepCreator className="ml-8 mt-8" />
+          </div>
         </div>
 
-        <div className="flex flex-col space-y-4">
-          <TagInput />
-          <StepCreator />
-        </div>
         <Divider className="my-4" />
         <Button color="success" onClick={methods.handleSubmit(submit)}>
           Submit

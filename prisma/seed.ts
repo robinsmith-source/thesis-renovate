@@ -84,7 +84,7 @@ async function seedRecipeLabels() {
 }
 
 async function seedUserRecipes() {
-  +(await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: "testUser@example.com" },
     update: {},
     create: {
@@ -156,6 +156,7 @@ async function seedUserRecipes() {
                       {
                         name: "Eggs",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Parmesan",
@@ -256,6 +257,7 @@ async function seedUserRecipes() {
                       {
                         name: "Chicken Breasts",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Salt",
@@ -295,10 +297,12 @@ async function seedUserRecipes() {
                       {
                         name: "Cucumber",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Red Onion",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                     ],
                   },
@@ -378,10 +382,12 @@ async function seedUserRecipes() {
                       {
                         name: "Garlic cloves",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Onion",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Asparagus",
@@ -391,6 +397,7 @@ async function seedUserRecipes() {
                       {
                         name: "Bell Peppers",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Cherry Tomatoes",
@@ -516,14 +523,17 @@ async function seedUserRecipes() {
                       {
                         name: "Onions",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Carrots",
                         quantity: 3,
+                        unit: "PIECE",
                       },
                       {
                         name: "Celery",
                         quantity: 3,
+                        unit: "PIECE",
                       },
                     ],
                   },
@@ -558,6 +568,7 @@ async function seedUserRecipes() {
                       {
                         name: "Bay Leaves",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Worcestershire Sauce",
@@ -648,6 +659,7 @@ async function seedUserRecipes() {
                       {
                         name: "Garlic cloves",
                         quantity: 4,
+                        unit: "PIECE",
                       },
                       {
                         name: "Red Pepper Flakes",
@@ -731,6 +743,7 @@ async function seedUserRecipes() {
                       {
                         name: "Pizza Dough",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Tomato Sauce",
@@ -745,6 +758,7 @@ async function seedUserRecipes() {
                       {
                         name: "Tomato",
                         quantity: 2,
+                        unit: "PIECE",
                       },
                       {
                         name: "Fresh Basil Leaves",
@@ -787,6 +801,7 @@ async function seedUserRecipes() {
             description:
               "A quick and healthy vegetarian stir-fry with a colorful mix of vegetables and tofu.",
             difficulty: "EASY",
+            images: ["b3940c1c-5142-407f-b80f-e4010415ac87-nt79li.webp"],
             labels: {
               connect: [
                 {
@@ -842,6 +857,7 @@ async function seedUserRecipes() {
                       {
                         name: "Bell Peppers",
                         quantity: 1,
+                        unit: "PIECE",
                       },
                       {
                         name: "Broccoli Florets",
@@ -908,6 +924,7 @@ async function seedUserRecipes() {
             name: "Fruit Smoothie",
             description: "A refreshing and easy-to-make fruit smoothie.",
             difficulty: "EASY",
+            images: ["0304f9a7-93e4-45c6-aafb-83ddd3b536f1-gumhj9.jpg"],
             labels: {
               connect: [{ name: "Vegan" }, { name: "Gluten-Free" }],
             },
@@ -939,6 +956,7 @@ async function seedUserRecipes() {
             description:
               "A savory beef stir-fry with fresh broccoli and a flavorful sauce.",
             difficulty: "MEDIUM",
+            images: ["d83a911c-bc2f-43ba-b0e1-11d295754f42-wxk4uu.jpg"],
             labels: {
               connect: [{ name: "Chinese" }],
             },
@@ -974,7 +992,11 @@ async function seedUserRecipes() {
                   ingredients: {
                     create: [
                       { name: "Sauce", quantity: 1, unit: "CUP" },
-                      { name: "Additional Ingredients", quantity: 1 },
+                      {
+                        name: "Additional Ingredients",
+                        quantity: 1,
+                        unit: "PIECE",
+                      },
                     ],
                   },
                 },
@@ -996,6 +1018,7 @@ async function seedUserRecipes() {
             description:
               "A trendy and satisfying snack featuring creamy avocado on toasted bread with a perfectly poached egg.",
             difficulty: "MEDIUM",
+            images: ["036f15ca-478b-42c0-a300-b6eb196beb99-v6kb4n.jpg"],
             labels: {
               connect: [{ name: "Low-Fat" }, { name: "Vegetarian" }],
             },
@@ -1008,7 +1031,9 @@ async function seedUserRecipes() {
                   stepType: "COOK",
                   duration: 5,
                   ingredients: {
-                    create: [{ name: "Whole-Grain Bread", quantity: 2 }],
+                    create: [
+                      { name: "Whole-Grain Bread", quantity: 2, unit: "PIECE" },
+                    ],
                   },
                 },
                 {
@@ -1017,7 +1042,9 @@ async function seedUserRecipes() {
                   stepType: "PREP",
                   duration: 5,
                   ingredients: {
-                    create: [{ name: "Ripe Avocado", quantity: 1 }],
+                    create: [
+                      { name: "Ripe Avocado", quantity: 1, unit: "PIECE" },
+                    ],
                   },
                 },
                 {
@@ -1026,7 +1053,7 @@ async function seedUserRecipes() {
                   stepType: "COOK",
                   duration: 4,
                   ingredients: {
-                    create: [{ name: "Eggs", quantity: 2 }],
+                    create: [{ name: "Eggs", quantity: 2, unit: "PIECE" }],
                   },
                 },
                 {
@@ -1049,6 +1076,7 @@ async function seedUserRecipes() {
             description:
               "A refreshing and bite-sized snack with cherry tomatoes, fresh mozzarella, and basil.",
             difficulty: "EASY",
+            images: ["92a355f5-e44b-4da2-afba-26998e665170-lrlsg9.jpg"],
             labels: {
               connect: [{ name: "Italian" }, { name: "Vegetarian" }],
             },
@@ -1062,9 +1090,17 @@ async function seedUserRecipes() {
                   duration: 10,
                   ingredients: {
                     create: [
-                      { name: "Cherry Tomatoes", quantity: 20 },
-                      { name: "Fresh Mozzarella Balls", quantity: 20 },
-                      { name: "Fresh Basil Leaves", quantity: 20 },
+                      { name: "Cherry Tomatoes", quantity: 20, unit: "PIECE" },
+                      {
+                        name: "Fresh Mozzarella Balls",
+                        quantity: 20,
+                        unit: "PIECE",
+                      },
+                      {
+                        name: "Fresh Basil Leaves",
+                        quantity: 20,
+                        unit: "PIECE",
+                      },
                       {
                         name: "Balsamic Glaze",
                         quantity: 1,
@@ -1086,6 +1122,7 @@ async function seedUserRecipes() {
             description:
               "A healthy and satisfying snack with whole wheat wraps, hummus, and colorful vegetables.",
             difficulty: "EASY",
+            images: ["ebe59729-80a7-4d81-914d-40e6f215d628-69wfh8.jpg"],
             labels: {
               connect: [{ name: "Vegetarian" }, { name: "Low-Fat" }],
             },
@@ -1100,7 +1137,7 @@ async function seedUserRecipes() {
                   ingredients: {
                     create: [
                       { name: "Hummus", quantity: 4, unit: "TABLESPOON" },
-                      { name: "Whole Wheat Wrap", quantity: 1 },
+                      { name: "Whole Wheat Wrap", quantity: 1, unit: "PIECE" },
                     ],
                   },
                 },
@@ -1135,7 +1172,7 @@ async function seedUserRecipes() {
         ],
       },
     },
-  }));
+  });
 }
 
 main()
