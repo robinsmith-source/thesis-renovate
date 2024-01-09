@@ -5,8 +5,8 @@ import { Button, useDisclosure } from "@nextui-org/react";
 import ShoppingListFormModal from "~/app/_components/ShoppingListFormModal";
 import { FaPenToSquare, FaPlus, FaTrash } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import ConfirmationModal from "~/app/_components/ConfirmationModal";
 import { Modes } from "~/app/lib/shoppingListModes";
+import UniversalModal from "~/app/_components/UniversalModal";
 
 export type ShoppingListFormType = {
   name: string;
@@ -138,17 +138,25 @@ export default function ShoppingListFormHandler(
           <Button isIconOnly color="danger" size={buttonSize} onPress={onOpen}>
             <FaTrash />
           </Button>
-          <ConfirmationModal
+
+          <UniversalModal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
-            title="Delete Shopping List"
-            body="Are you sure you want to delete this shopping list?
-          This action cannot be undone."
             onConfirm={() => {
               onDelete(props.shoppingList.id);
               onClose();
             }}
-          />
+            title="Delete Shopping List"
+            submitColor="danger"
+          >
+            <p>
+              Are you sure you want to delete this shopping list?
+              <br />{" "}
+              <span className="font-semibold">
+                This action cannot be undone.
+              </span>
+            </p>
+          </UniversalModal>
         </>
       );
     default:
