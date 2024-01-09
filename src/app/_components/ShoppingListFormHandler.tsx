@@ -1,12 +1,14 @@
 "use client";
 import { api } from "~/trpc/react";
 import toast from "react-hot-toast";
-import { Button, useDisclosure } from "@nextui-org/react";
-import ShoppingListFormModal from "~/app/_components/ShoppingListFormModal";
+import { Button, Input, Textarea, useDisclosure } from "@nextui-org/react";
 import { FaPenToSquare, FaPlus, FaTrash } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { Modes } from "~/app/lib/shoppingListModes";
 import UniversalModal from "~/app/_components/UniversalModal";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export type ShoppingListFormType = {
   name: string;
@@ -39,6 +41,21 @@ export default function ShoppingListFormHandler(
   const { onOpen, isOpen, onOpenChange, onClose } = useDisclosure();
   const router = useRouter();
 
+  const schema = z.object({
+    name: z.string().min(3),
+    description: z.string().optional(),
+  });
+
+  const { control, handleSubmit, reset } = useForm({
+    mode: "onTouched",
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: "",
+      description: "",
+      ...(mode === Modes.EDIT && props.shoppingList),
+    },
+  });
+
   const onCreate = (data: ShoppingListFormType) => {
     createMutation.mutate({
       name: data.name,
@@ -51,6 +68,7 @@ export default function ShoppingListFormHandler(
       toast.success("Shopping list submitted successfully");
       router.refresh();
       onClose();
+      reset();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -102,12 +120,44 @@ export default function ShoppingListFormHandler(
           <Button isIconOnly color="success" size={buttonSize} onPress={onOpen}>
             <FaPlus />
           </Button>
-          <ShoppingListFormModal
+
+          <UniversalModal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
+            onConfirm={handleSubmit(onCreate)}
             title="Create Shopping List"
-            submit={onCreate}
-          />
+            submitColor="success"
+          >
+            <Controller
+              control={control}
+              name="name"
+              render={({ field, fieldState }) => (
+                <Input
+                  {...field}
+                  label="Name"
+                  placeholder="My shopping list"
+                  isInvalid={!!fieldState.error}
+                  errorMessage={fieldState.error?.message}
+                  value={field.value ?? ""}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="description"
+              render={({ field, fieldState }) => (
+                <Textarea
+                  {...field}
+                  minRows={2}
+                  label="Description"
+                  placeholder="This is my shopping list"
+                  isInvalid={!!fieldState.error}
+                  errorMessage={fieldState.error?.message}
+                  value={field.value ?? ""}
+                />
+              )}
+            />
+          </UniversalModal>
         </>
       );
     case Modes.EDIT:
@@ -121,15 +171,44 @@ export default function ShoppingListFormHandler(
           >
             <FaPenToSquare />
           </Button>
-          <ShoppingListFormModal
+
+          <UniversalModal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
+            onConfirm={handleSubmit(onEdit)}
             title="Edit Shopping List"
-            formValue={{
-              ...props.shoppingList,
-            }}
-            submit={onEdit}
-          />
+            submitColor="success"
+          >
+            <Controller
+              control={control}
+              name="name"
+              render={({ field, fieldState }) => (
+                <Input
+                  {...field}
+                  label="Name"
+                  placeholder="My shopping list"
+                  isInvalid={!!fieldState.error}
+                  errorMessage={fieldState.error?.message}
+                  value={field.value ?? ""}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="description"
+              render={({ field, fieldState }) => (
+                <Textarea
+                  {...field}
+                  minRows={2}
+                  label="Description"
+                  placeholder="This is my shopping list"
+                  isInvalid={!!fieldState.error}
+                  errorMessage={fieldState.error?.message}
+                  value={field.value ?? ""}
+                />
+              )}
+            />
+          </UniversalModal>
         </>
       );
     case Modes.DELETE:
