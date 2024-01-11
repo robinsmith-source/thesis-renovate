@@ -1,6 +1,6 @@
 "use client";
+import { Button, CardFooter, Selection } from "@nextui-org/react";
 import {
-  Input,
   Table,
   TableBody,
   TableCell,
@@ -8,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import type { Selection } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { convertUnitName } from "~/app/utils";
 import {
@@ -17,6 +16,8 @@ import {
 } from "~/utils/IngredientCalculator";
 import type { Unit } from "@prisma/client";
 import { usePortionSize } from "~/app/recipe/[id]/PortionSizeContext";
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 export default function IngredientTable({
   className,
@@ -40,6 +41,8 @@ export default function IngredientTable({
 }) {
   const { portionSize, setPortionSize } = usePortionSize();
   const summarizedIngredients = calculateIngredients(ingredients, portionSize);
+
+  const [animation, setAnimation] = useState({ x: 0 });
 
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set());
   const [shouldEmitSelection, setShouldEmitSelection] =
@@ -104,17 +107,49 @@ export default function IngredientTable({
         </TableBody>
       </Table>
       {isPortionable && (
-        <Input
-          onValueChange={(value) => {
-            setPortionSize(parseInt(value));
-          }}
-          size="sm"
-          type="number"
-          min={1}
-          defaultValue={portionSize + ""}
-          placeholder="required portion"
-          className="w-40"
-        />
+        <CardFooter className="flex w-full justify-between">
+          <Button
+            isIconOnly
+            onPress={() => {
+              setPortionSize((portionSize) => portionSize - 1);
+              setAnimation({
+                x: -30,
+              });
+            }}
+            isDisabled={portionSize <= 1}
+            className="duration-300 hover:scale-110 hover:bg-primary"
+          >
+            <FaMinus />
+          </Button>
+          <motion.span
+            key={portionSize}
+            initial={animation}
+            animate={{
+              x: 0,
+            }}
+            exit={{
+              x: 0,
+            }}
+            transition={{
+              duration: 0.3,
+              type: "spring",
+            }}
+          >
+            {portionSize}
+          </motion.span>
+          <Button
+            isIconOnly
+            onPress={() => {
+              setPortionSize((portionSize) => portionSize + 1);
+              setAnimation({
+                x: 30,
+              });
+            }}
+            className="duration-300 hover:scale-110 hover:bg-primary"
+          >
+            <FaPlus />
+          </Button>
+        </CardFooter>
       )}
     </>
   );

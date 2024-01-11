@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, Link } from "@nextui-org/react";
+import { Button, Chip, Divider } from "@nextui-org/react";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { FaPenToSquare } from "react-icons/fa6";
@@ -6,6 +6,7 @@ import ReviewSection from "./_review/ReviewSection";
 import { auth } from "auth";
 import { api } from "~/trpc/server";
 import ImageCarousel from "./ImageCarousel";
+import RecipeAuthorSection from "./RecipeAuthorSection";
 import RecipeStep from "./RecipeStep";
 import RecipeDeleteHandler from "~/app/recipe/[id]/RecipeDeleteHandler";
 import ShoppingListHandler from "~/app/recipe/[id]/ShoppingListHandler";
@@ -29,7 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   console.log(recipe.images);
   return (
-    <main>
+    <main className="space-y-6">
       <PortionSizeProvider>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
@@ -55,19 +56,14 @@ export default async function Page({ params }: { params: { id: string } }) {
               )}
             </div>
 
-            <p>
-              created by <br />
-              <Link color="secondary" href={`/user/${recipe.author.id}`}>
-                {recipe.author.name}
-              </Link>
-            </p>
-
             <div className="my-2 flex gap-2">
               {recipe.labels.map((label) => (
                 <Chip key={label.id}>{label.name}</Chip>
               ))}
             </div>
+
             <p>{recipe.description}</p>
+
           </div>
           <ImageCarousel images={recipe.images} />
           <ShoppingListHandler
@@ -96,6 +92,13 @@ export default async function Page({ params }: { params: { id: string } }) {
           <Chip key={tag}>#{tag}</Chip>
         ))}
       </div>
+
+      <Divider className="my-4" />
+      <RecipeAuthorSection
+        currentRecipeId={params.id}
+        recipeAuthor={recipe.author}
+      />
+
       <Divider className="my-4" />
       <ReviewSection
         recipeId={recipe.id}
