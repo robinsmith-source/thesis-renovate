@@ -13,7 +13,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="ml-5">
           <h1 className="text-7xl font-bold">Welcome to Goose Chef!</h1>
           <p className="mt-8 text-4xl font-semibold">
@@ -21,7 +21,7 @@ export default async function Home() {
           </p>
           <p className="mt-8 text-2xl">
             Add your own Recipes, share them with Friends and Family. Or explore
-            new Recipes from other Cooking Lovers!
+            new Recipes from other Cooking-Enthusiasts!
           </p>
         </div>
         <div className="mb-4 flex justify-center">
