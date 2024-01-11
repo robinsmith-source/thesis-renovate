@@ -11,7 +11,6 @@ import RecipeAuthorSection from "./RecipeAuthorSection";
 import RecipeStep from "./RecipeStep";
 import RecipeDeleteHandler from "~/app/recipe/[id]/RecipeDeleteHandler";
 import ShoppingListHandler from "~/app/recipe/[id]/ShoppingListHandler";
-import { PortionSizeProvider } from "~/app/recipe/[id]/PortionSizeContext";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
@@ -34,62 +33,60 @@ export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
   return (
     <main className="space-y-6">
-      <PortionSizeProvider>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <div className="flex items-center gap-x-2">
             <h1 className="text-2xl font-bold">{recipe.name}</h1>
 
-              <span className="capitalize">
-                ({recipe.difficulty.toLowerCase()})
-              </span>
+            <span className="capitalize">
+              ({recipe.difficulty.toLowerCase()})
+            </span>
 
-              {recipe.authorId === session?.user?.id && (
-                <>
-                  <Button
-                    isIconOnly
-                    as={NextLink}
-                    color="secondary"
-                    href={`${params.id}/edit`}
-                  >
-                    <FaPenToSquare />
-                  </Button>
-                  <RecipeDeleteHandler recipeId={recipe.id} />
-                </>
-              )}
-            </div>
+            {recipe.authorId === session?.user?.id && (
+              <>
+                <Button
+                  isIconOnly
+                  as={NextLink}
+                  color="secondary"
+                  href={`${params.id}/edit`}
+                >
+                  <FaPenToSquare />
+                </Button>
+                <RecipeDeleteHandler recipeId={recipe.id} />
+              </>
+            )}
+          </div>
 
           <div className="my-2 flex gap-2">
             {recipe.labels.map((label) => (
               <Chip key={label.id}>{label.name}</Chip>
             ))}
           </div>
-          
-          <ImageCarousel images={recipe.images} />
-          <ShoppingListHandler
-            isAuthorized={!!session?.user}
-            shoppingLists={shoppingLists}
-            ingredients={recipe.steps.flatMap((step) => step.ingredients)}
-          />
+          <p>{recipe.description}</p>
         </div>
-        
-        <Divider className="my-4" />
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th className="pr-4 text-right">Ingredients</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recipe.steps.map((step) => (
-                <RecipeStep step={step} key={step.id} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </PortionSizeProvider>
-
+        <ImageCarousel images={recipe.images} />
+        <ShoppingListHandler
+          isAuthorized={!!session?.user}
+          shoppingLists={shoppingLists}
+          ingredients={recipe.steps.flatMap((step) => step.ingredients)}
+        />
+      </div>
+      
+      <Divider className="my-4" />
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th className="pr-4 text-right">Ingredients</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recipe.steps.map((step) => (
+              <RecipeStep step={step} key={step.id} />
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="mt-4 flex justify-center gap-2">
         {recipe.tags.map((tag) => (
           <Chip key={tag}>#{tag}</Chip>
