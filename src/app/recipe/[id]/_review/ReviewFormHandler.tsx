@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import ReviewForm from "./ReviewForm";
 import ReviewCard from "./ReviewCard";
 import { AnimatePresence, motion } from "framer-motion";
-import ConfirmationModal from "~/app/_components/ConfirmationModal";
 import { useDisclosure } from "@nextui-org/react";
+import UniversalModal from "~/app/_components/UniversalModal";
 
 enum Modes {
   CREATE,
@@ -162,17 +162,25 @@ export default function ReviewFormHandler({
                 onOpen();
               }}
             />
-            <ConfirmationModal
+
+            <UniversalModal
               isOpen={isOpen}
               onOpenChange={onOpenChange}
-              title="Delete Review"
-              body="Are you sure you want to delete this review?
-This action cannot be undone."
               onConfirm={() => {
                 onDelete(submittedReview.id);
                 onClose();
               }}
-            />
+              title="Delete Review"
+              submitColor="danger"
+            >
+              <p>
+                Are you sure you want to delete this review?
+                <br />{" "}
+                <span className="font-semibold">
+                  This action cannot be undone.
+                </span>
+              </p>
+            </UniversalModal>
           </motion.div>
         )}
       </AnimatePresence>
