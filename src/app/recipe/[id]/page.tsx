@@ -47,7 +47,9 @@ export default async function Page({ params }: { params: { id: string } }) {
 
           <div className="my-2 flex gap-2">
             {recipe.labels.map((label) => (
-              <Chip key={label.id}>{label.name}</Chip>
+              <Chip className="bg-violet-600" key={label.id}>
+                {label.name}
+              </Chip>
             ))}
           </div>
           <p>{recipe.description}</p>
@@ -71,7 +73,9 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       <div className="mt-4 flex justify-center gap-2">
         {recipe.tags.map((tag) => (
-          <Chip key={tag}>#{tag}</Chip>
+          <Chip className="bg-cyan-600" key={tag}>
+            #{tag}
+          </Chip>
         ))}
       </div>
       <Divider className="my-4" />

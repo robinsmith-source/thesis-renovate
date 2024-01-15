@@ -1,7 +1,7 @@
 import { type RecipeDifficulty } from "@prisma/client";
 import { type ReactNode } from "react";
 import { Chip } from "@nextui-org/react";
-import {PiKnifeFill} from "react-icons/pi";
+import { RiKnifeFill } from "react-icons/ri";
 
 const difficultyToNumber = { EASY: 1, MEDIUM: 2, HARD: 3, EXPERT: 4 };
 export default function DifficultyChip({
@@ -11,9 +11,12 @@ export default function DifficultyChip({
 }): ReactNode {
   const difficultyInNumber = difficultyToNumber[difficulty];
   return (
-    <Chip className="flex gap-1">
+    <Chip className="flex gap-1 bg-violet-500">
       {Array.from(Array(difficultyInNumber), () => (
-        <PiKnifeFill key={difficultyInNumber} className="mr-1 inline last:mr-0"/>
+        <RiKnifeFill
+          key={difficultyInNumber}
+          className="mr-1 inline last:mr-0"
+        />
       ))}
     </Chip>
   );
