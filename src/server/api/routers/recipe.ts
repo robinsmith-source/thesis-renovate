@@ -12,7 +12,7 @@ export const recipeRouter = createTRPCRouter({
   get: publicProcedure
     .input(z.object({ id: z.string().cuid() }))
     .query(({ input, ctx }) => {
-      return ctx.db.recipe.findFirst({
+      const recipe = ctx.db.recipe.findFirst({
         where: { id: input.id },
         include: {
           steps: {
@@ -29,9 +29,18 @@ export const recipeRouter = createTRPCRouter({
           author: true,
         },
       });
+
+      if (!recipe) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found.",
+        });
+      }
+
+      return recipe;
     }),
 
-  getRecipeCards: publicProcedure
+  getCards: publicProcedure
     .input(
       z.object({
         take: z.number().min(1).max(50),
@@ -98,8 +107,8 @@ export const recipeRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        name: z.string().min(1),
-        description: z.string().nullable(),
+        name: z.string().min(3).max(50),
+        description: z.string().min(3).max(300).nullable(),
         difficulty: z.enum(["EASY", "MEDIUM", "HARD", "EXPERT"]),
         images: z.array(z.string()),
         tags: z
@@ -115,8 +124,8 @@ export const recipeRouter = createTRPCRouter({
           }),
         steps: z.array(
           z.object({
-            description: z.string(),
-            duration: z.number().min(0),
+            description: z.string().min(3).max(300),
+            duration: z.number().min(1),
             stepType: z.enum([
               "PREP",
               "COOK",
@@ -127,7 +136,7 @@ export const recipeRouter = createTRPCRouter({
             ]),
             ingredients: z.array(
               z.object({
-                name: z.string().min(1),
+                name: z.string().min(1).max(50),
                 quantity: z.number().min(1),
                 unit: z.enum([
                   "GRAM",
@@ -191,35 +200,39 @@ export const recipeRouter = createTRPCRouter({
         where: { images: { has: input.key } },
       });
 
-      if (existingRecipe) {
-        if (existingRecipe.authorId !== ctx.session.user.id) {
-          throw new TRPCError({
-            code: "FORBIDDEN",
-            message: "You can't delete images used by another user's recipe",
-          });
-        }
+      if (!existingRecipe) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe with the specified image key not found.",
+        });
       }
+
+      if (existingRecipe.authorId !== ctx.session.user.id) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You can't delete images used by another user's recipe.",
+        });
+      }
+
       await utapi.deleteFiles(input.key);
 
       // If the image was associated with a recipe, remove the link from the recipe
-      if (existingRecipe) {
-        await ctx.db.recipe.update({
-          where: { id: existingRecipe.id },
-          data: {
-            images: {
-              set: existingRecipe.images.filter((img) => img !== input.key),
-            },
+      await ctx.db.recipe.update({
+        where: { id: existingRecipe.id },
+        data: {
+          images: {
+            set: existingRecipe.images.filter((img) => img !== input.key),
           },
-        });
-      }
+        },
+      });
     }),
 
-  updateRecipe: protectedProcedure
+  update: protectedProcedure
     .input(
       z.object({
         id: z.string().cuid(),
-        name: z.string().min(1),
-        description: z.string().nullable(),
+        name: z.string().min(3).max(50),
+        description: z.string().min(3).max(300).nullable(),
         difficulty: z.enum(["EASY", "MEDIUM", "HARD", "EXPERT"]),
         images: z.array(z.string()),
         tags: z
@@ -235,8 +248,8 @@ export const recipeRouter = createTRPCRouter({
           }),
         steps: z.array(
           z.object({
-            description: z.string(),
-            duration: z.number().min(0),
+            description: z.string().min(3).max(300),
+            duration: z.number().min(1),
             stepType: z.enum([
               "PREP",
               "COOK",
@@ -247,7 +260,7 @@ export const recipeRouter = createTRPCRouter({
             ]),
             ingredients: z.array(
               z.object({
-                name: z.string().min(1),
+                name: z.string().min(1).max(50),
                 quantity: z.number().min(1),
                 unit: z.enum([
                   "GRAM",
@@ -271,11 +284,12 @@ export const recipeRouter = createTRPCRouter({
         where: { id: input.id },
       });
 
-      if (!recipe)
+      if (!recipe) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Recipe does not exist.",
+          message: "Recipe not found.",
         });
+      }
 
       if (recipe.authorId !== ctx.session.user.id) {
         throw new TRPCError({
@@ -298,6 +312,7 @@ export const recipeRouter = createTRPCRouter({
             author: { connect: { id: ctx.session.user.id } },
           },
         });
+
         await tx.recipeStep.deleteMany({
           where: {
             recipeId: input.id,
@@ -337,21 +352,24 @@ export const recipeRouter = createTRPCRouter({
         where: { id: input.recipeId, authorId: ctx.session.user.id },
       });
 
-      if (!recipe)
+      if (!recipe) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Recipe does not exist.",
+          message: "Recipe not found.",
         });
+      }
 
-      return ctx.db.$transaction(async (tx) => {
+      await ctx.db.$transaction(async (tx) => {
         await tx.recipe.delete({
           where: {
             id: input.recipeId,
             authorId: ctx.session.user.id,
           },
         });
-        console.log("img", recipe.images);
-        recipe.images.length > 0 && (await utapi.deleteFiles(recipe.images));
+
+        if (recipe.images.length > 0) {
+          await utapi.deleteFiles(recipe.images);
+        }
       });
     }),
 });
