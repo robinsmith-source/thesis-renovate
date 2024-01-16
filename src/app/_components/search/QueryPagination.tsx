@@ -31,6 +31,7 @@ export default function QueryPagination({ pageCount, className = "" }: QueryPagi
       showControls
       siblings={2}
       initialPage={initialPage}
+      page={parseInt(searchParams.get("page")?.toString() ?? "1")}
       total={pageCount}
       onChange={(page) => {
         handlePagination(page);

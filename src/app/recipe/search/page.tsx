@@ -26,7 +26,7 @@ type apiParams = {
 // translate parameters
 const createQueryParams = (params: urlParams) => {
   const { name, labels, difficulty, order, pageSize, page } = params;
-  const queryParameters: apiParams = {take: Number(pageSize) ?? 12};
+  const queryParameters: apiParams = { take: Number(pageSize) ?? 12 };
 
   if (name) queryParameters.name = name;
   if (labels) queryParameters.labels = labels.split(",");
@@ -74,8 +74,12 @@ export default async function Page({
   return (
     <main className="flex flex-col items-center">
       <AdvancedRecipeSearch />
+      {queryParameters.take && queryParameters.take >= 25 ? (
+        <QueryPagination pageCount={pageCount} className="mt-2" />
+      ) : (
+        <></>
+      )}
       <FilterAccordion categories={categories} />
-      <QueryPagination pageCount={pageCount} className="my-2"/>
       <RecipeCardsSection recipes={displayedRecipeCards} />
       <QueryPagination pageCount={pageCount} className="mt-2" />
     </main>
