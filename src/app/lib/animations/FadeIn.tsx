@@ -63,7 +63,8 @@ export const FadeIn = ({
                 type: "spring",
                 damping: 20,
                 stiffness: 100,
-                delay: 0.2 * index + offset,
+                ease: "easeInOut",
+                delay: 0.3 * index + offset, // Increase delay for each child
                 bounce: 0.4,
               }}
               whileInView="animate"
