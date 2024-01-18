@@ -23,9 +23,10 @@ export default function LabelSelect({
 
   function handleLabelFilter(selectedLabels: string[]) {
     const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
+    // reset page
+    params.get("page") ? params.set("page", "1") : params.delete("page");
 
-    selectedLabels
+    selectedLabels && selectedLabels.length > 0
       ? params.set("labels", selectedLabels.join())
       : params.delete("labels");
     router.replace(`${pathname}?${params.toString()}`);

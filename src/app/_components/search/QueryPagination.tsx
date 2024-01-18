@@ -18,7 +18,7 @@ export default function QueryPagination({ pageCount, className }: QueryPaginatio
     : 1;
 
 
-  const handlePagination = (pageNumber: number | string) => {
+  const handlePagination = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     router.replace(`${pathname}?${params.toString()}`);

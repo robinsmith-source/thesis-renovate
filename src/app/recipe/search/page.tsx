@@ -22,14 +22,14 @@ type apiParams = {
   labels?: string[];
 };
 
-// translate parameters
+// generate query parameters for api call
 const createQueryParams = (params: urlParams) => {
   const { name, labels, difficulty, order, pageSize, page } = params;
   const numericPageSize = parseInt(pageSize ?? "12");
   const textDifficulty = ["EASY", "MEDIUM", "HARD", "EXPERT"][
     Number(difficulty) - 1
   ] as "EASY" | "MEDIUM" | "HARD" | "EXPERT";
-  
+
   const queryParameters: apiParams = {
     take: numericPageSize ?? 12,
     ...(name && { name }),
