@@ -39,7 +39,7 @@ export const {
   },
   cookies: {
     pkceCodeVerifier: {
-      name: "next-auth.pkce.code_verifier",
+      name: "authjs.pkce.code_verifier",
       options: {
         httpOnly: true,
         sameSite: "none",

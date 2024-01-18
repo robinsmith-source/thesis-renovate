@@ -1,4 +1,4 @@
-# chef-emoji-pinched-hands-kitchen-knife
+# GooseChef
 
 This is our repository for our SE3 project implementing a recipe app.
 
