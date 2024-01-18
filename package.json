@@ -1,6 +1,6 @@
 {
-  "name": "chef-emoji-pinched-hands-kitchen-knife",
-  "version": "0.1.0",
+  "name": "goosechef",
+  "version": "0.4.0",
   "private": true,
   "prisma": {
     "seed": "jiti prisma/seed.ts"
