@@ -1,7 +1,6 @@
 "use client";
-import { motion, useAnimation } from "framer-motion";
-import { Children, ReactNode, useEffect, useRef } from "react";
-import { useInView } from "framer-motion";
+import { motion, useInView, useAnimation } from "framer-motion";
+import { Children, type ReactNode, useEffect, useRef } from "react";
 
 interface FadeInProps {
   className?: string;
@@ -44,9 +43,9 @@ export const FadeIn = ({
 
   useEffect(() => {
     if (isInView) {
-      controls.start("visible");
+      void controls.start("visible");
     }
-  }, [isInView]);
+  }, [isInView, controls]);
 
   return (
     <div>
@@ -64,7 +63,7 @@ export const FadeIn = ({
                 damping: 20,
                 stiffness: 100,
                 ease: "easeInOut",
-                delay: 0.3 * index + offset, // Increase delay for each child
+                delay: 0.3 * index + offset,
                 bounce: 0.4,
               }}
               whileInView="animate"
