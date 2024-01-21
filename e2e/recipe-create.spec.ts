@@ -35,6 +35,7 @@ test("Create a recipe and make sure it gets created", async ({ page }) => {
   // wait for the page to not be a recipe
   await page.waitForURL(/\/recipe\/c[a-z0-9]{24}/);
 
+  //TODO: due to layout changes, this assertions are broken and needs to be fixed
   await expect(page.getByRole("heading")).toContainText("Testing Recipe");
   await expect(page.getByRole("main")).toContainText("(hard)");
   await expect(page.getByRole("listitem")).toContainText("4 ml Ingredient 1");
