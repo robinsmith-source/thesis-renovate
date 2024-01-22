@@ -84,7 +84,6 @@ export default function AdvancedRecipeSearch({
           transition={{ duration: 0.2 }}
         >
           <div className="flex w-full flex-col">
-            <Divider className="w-full bg-background-400" />
             <div className="mt-2 flex w-full flex-row items-center justify-between">
               <div className="flex flex-row items-center justify-start md:w-1/2">
                 <span className="font-bold text-default-600">Difficulty</span>

@@ -54,7 +54,7 @@ export default function SearchViewOptions() {
   return (
     <div>
       {/* large screen */}
-      <div className="hidden flex-row items-center justify-around md:flex">
+      <div className="hidden flex-row items-center justify-around space-x-1 md:flex">
         <Select
           fullWidth={false}
           size="sm"
