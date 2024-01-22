@@ -28,6 +28,11 @@ export const recipeRouter = createTRPCRouter({
           },
           labels: true,
           author: true,
+          savedUsers: {
+            where: {
+              id: ctx?.session?.user?.id,
+            },
+          },
         },
       });
 
@@ -386,6 +391,78 @@ export const recipeRouter = createTRPCRouter({
         if (recipe.images.length > 0) {
           await utapi.deleteFiles(recipe.images);
         }
+      });
+    }),
+
+  save: protectedProcedure
+    .input(z.object({ recipeId: z.string().cuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const recipe = await ctx.db.recipe.findFirst({
+        where: { id: input.recipeId },
+        include: {
+          savedUsers: {
+            where: { id: ctx.session.user.id },
+          },
+        },
+      });
+
+      if (!recipe) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found.",
+        });
+      }
+
+      if (recipe.savedUsers.length > 0) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Recipe is already saved.",
+        });
+      }
+
+      await ctx.db.recipe.update({
+        where: { id: input.recipeId },
+        data: {
+          savedUsers: {
+            connect: { id: ctx.session.user.id },
+          },
+        },
+      });
+    }),
+
+  unsave: protectedProcedure
+    .input(z.object({ recipeId: z.string().cuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const recipe = await ctx.db.recipe.findFirst({
+        where: { id: input.recipeId },
+        include: {
+          savedUsers: {
+            where: { id: ctx.session.user.id },
+          },
+        },
+      });
+
+      if (!recipe) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found.",
+        });
+      }
+
+      if (recipe.savedUsers.length === 0) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Recipe is not saved.",
+        });
+      }
+
+      await ctx.db.recipe.update({
+        where: { id: input.recipeId },
+        data: {
+          savedUsers: {
+            disconnect: { id: ctx.session.user.id },
+          },
+        },
       });
     }),
 });
