@@ -28,6 +28,7 @@ export default function ShoppingListHandler({
   const [selectedIngredients, setSelectedIngredients] =
     useState<Ingredient[]>();
   const router = useRouter();
+
   function handleAddItem() {
     createMutation.mutate({
       shoppingListId: shoppingListId as string,
@@ -61,7 +62,7 @@ export default function ShoppingListHandler({
   }, []);
 
   return (
-    <Card className="flex max-w-xs flex-col">
+    <Card className="flex w-full flex-col sm:max-w-xs">
       <CardHeader className="flex flex-col gap-4">
         {isAuthorized && (
           <>
@@ -93,6 +94,7 @@ export default function ShoppingListHandler({
       </CardHeader>
       <CardBody>
         <IngredientTable
+          className="w-full sm:max-w-xs"
           isSelectable={isAuthorized}
           isPortionable
           removeWrapper

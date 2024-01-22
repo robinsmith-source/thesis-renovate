@@ -18,13 +18,13 @@ export default function ShoppingListSelector({
   const [value, setValue] = useState<Key>();
 
   return (
-    <div className="flex max-w-xs items-center gap-4">
+    <div className="flex w-full items-center justify-between gap-4 sm:max-w-xs">
       <Autocomplete
         defaultItems={shoppingLists}
         label="Shopping List"
         variant="bordered"
         placeholder="Choose a shopping list"
-        className="max-w-xs"
+        className="w-full sm:max-w-xs"
         selectedKey={value as string}
         onSelectionChange={(value) => {
           setValue(value);

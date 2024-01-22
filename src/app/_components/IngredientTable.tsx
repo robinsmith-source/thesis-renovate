@@ -81,7 +81,7 @@ export default function IngredientTable({
     <>
       <Table
         aria-label="Ingredient Table"
-        className={`max-w-xs ${className}`}
+        className={`w-full sm:max-w-xs ${className}`}
         selectionMode={isSelectable ? "multiple" : "none"}
         removeWrapper={removeWrapper}
         selectedKeys={selectedKeys}

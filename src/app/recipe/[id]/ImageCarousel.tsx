@@ -20,7 +20,7 @@ export default function ImageCarousel({
   }
 
   return (
-    <Card className={`${className} group h-96 w-96`}>
+    <Card className={`${className} group w-full sm:h-96 sm:w-96`}>
       <AnimatePresence initial={false}>
         <motion.div className="h-full w-full" key={images[imageIndex]}>
           <Image

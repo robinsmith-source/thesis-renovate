@@ -63,8 +63,12 @@ export default async function Page({ params }: { params: { id: string } }) {
           <p>{recipe.description}</p>
           <Divider className="my-4" />
 
-          <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:justify-between">
-            <ImageCarousel images={recipe.images} className="md:order-1" />
+          <div
+            className={`flex flex-col items-center justify-center gap-6 md:flex-row md:justify-evenly md:gap-12`}
+          >
+            {recipe.images.length > 0 && (
+              <ImageCarousel images={recipe.images} className="md:order-1" />
+            )}
             <ShoppingListHandler
               isAuthorized={!!session?.user}
               shoppingLists={shoppingLists}
