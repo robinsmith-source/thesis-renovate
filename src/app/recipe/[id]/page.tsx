@@ -1,19 +1,20 @@
 import { Button, Chip, Divider } from "@nextui-org/react";
+import { auth } from "auth";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { FaPenToSquare } from "react-icons/fa6";
-import ReviewSection from "./_review/ReviewSection";
-import { auth } from "auth";
-import { api } from "~/trpc/server";
-import ImageCarousel from "./ImageCarousel";
 import DifficultyChip from "~/app/_components/DifficultyChip";
-import RecipeStep from "./RecipeStep";
-import RecipeAuthorSection from "./RecipeAuthorSection";
+import RatingDisplay from "~/app/_components/RatingDisplay";
+import { PortionSizeProvider } from "~/app/recipe/[id]/PortionSizeContext";
 import RecipeDeleteHandler from "~/app/recipe/[id]/RecipeDeleteHandler";
 import ShoppingListHandler from "~/app/recipe/[id]/ShoppingListHandler";
-import { PortionSizeProvider } from "~/app/recipe/[id]/PortionSizeContext";
-import RatingDisplay from "~/app/_components/RatingDisplay";
+import { api } from "~/trpc/server";
 import { calculateAverage } from "~/utils/RatingCalculator";
+import ImageCarousel from "./ImageCarousel";
+import RecipeAuthorSection from "./RecipeAuthorSection";
+import RecipeSaveButton from "./RecipeSaveButton";
+import RecipeStep from "./RecipeStep";
+import ReviewSection from "./_review/ReviewSection";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
@@ -89,6 +90,15 @@ export default async function Page({ params }: { params: { id: string } }) {
           </table>
         </div>
       </PortionSizeProvider>
+
+      {session?.user && (
+        <RecipeSaveButton
+          recipeId={recipe.id}
+          isSaved={recipe.savedUsers.length > 0}
+          savedCount={recipe._count.savedUsers}
+        />
+      )}
+
       <div className="mt-4 flex justify-center gap-2">
         {recipe.tags.map((tag) => (
           <Chip color="secondary" key={tag} variant="flat">
