@@ -61,8 +61,8 @@ export const reviewRouter = createTRPCRouter({
         recipeId: z.string().cuid(),
       }),
     )
-    .query(async ({ input, ctx }) => {
-      const ownReview = await ctx.db.recipeReview.findFirst({
+    .query(({ input, ctx }) => {
+      return ctx.db.recipeReview.findFirst({
         where: {
           recipeId: input.recipeId,
           authorId: ctx.session.user.id,
@@ -73,15 +73,6 @@ export const reviewRouter = createTRPCRouter({
           comment: true,
         },
       });
-
-      if (!ownReview) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Review not found",
-        });
-      }
-
-      return ownReview;
     }),
 
   getOthers: publicProcedure
@@ -90,8 +81,8 @@ export const reviewRouter = createTRPCRouter({
         recipeId: z.string().cuid(),
       }),
     )
-    .query(async ({ input, ctx }) => {
-      const otherReviews = await ctx.db.recipeReview.findMany({
+    .query(({ input, ctx }) => {
+      return ctx.db.recipeReview.findMany({
         where: {
           recipeId: input.recipeId,
           authorId: { not: ctx?.session?.user?.id },
@@ -106,15 +97,6 @@ export const reviewRouter = createTRPCRouter({
           },
         },
       });
-
-      if (!otherReviews) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Reviews not found",
-        });
-      }
-
-      return otherReviews;
     }),
 
   update: protectedProcedure

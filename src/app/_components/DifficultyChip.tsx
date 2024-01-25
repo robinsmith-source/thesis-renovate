@@ -11,7 +11,7 @@ export default function DifficultyChip({
 }): ReactNode {
   const difficultyInNumber = difficultyToNumber[difficulty];
   return (
-    <Chip className="flex gap-1 " size="sm" variant="faded">
+    <Chip className="flex gap-1" size="sm">
       {Array.from(Array(difficultyInNumber), () => (
         <RiKnifeFill
           key={difficultyInNumber}

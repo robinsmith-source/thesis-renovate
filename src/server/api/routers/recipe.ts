@@ -7,6 +7,7 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 import { utapi } from "~/server/uploadthing";
+import { calculateAverage } from "~/utils/RatingCalculator";
 
 export const recipeRouter = createTRPCRouter({
   get: publicProcedure
@@ -50,12 +51,12 @@ export const recipeRouter = createTRPCRouter({
         tags: z.array(z.string()).optional(),
         labels: z.array(z.string()).optional(),
         authorId: z.string().cuid().optional(),
-        orderBy: z.enum(["NEWEST", "OLDEST"]).optional(),
+        orderBy: z.enum(["NEWEST", "OLDEST", "RATING"]).optional(),
         excludeRecipeId: z.string().cuid().optional(),
         isFollowingFeed: z.boolean().optional(),
       }),
     )
-    .query(({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       function createLabelQuery(labels: string[]) {
         return {
           AND: labels.map((label) => ({
@@ -68,7 +69,7 @@ export const recipeRouter = createTRPCRouter({
         };
       }
 
-      return ctx.db.recipe.findMany({
+      const recipes = await ctx.db.recipe.findMany({
         orderBy: (() => {
           switch (input.orderBy) {
             case "NEWEST":
@@ -100,8 +101,23 @@ export const recipeRouter = createTRPCRouter({
           difficulty: true,
           labels: { select: { name: true } },
           images: true,
+          reviews: {
+            select: {
+              rating: true,
+            },
+          },
         },
       });
+
+      if (input.orderBy === "RATING") {
+        return recipes.sort(
+          (a, b) =>
+            calculateAverage(b.reviews).averageRating -
+            calculateAverage(a.reviews).averageRating,
+        );
+      }
+
+      return recipes;
     }),
 
   create: protectedProcedure

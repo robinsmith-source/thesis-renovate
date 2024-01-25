@@ -11,7 +11,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RatingInput from "./RatingInput";
 import { CardHeader } from "@nextui-org/card";
-import type { RecipeReview } from ".prisma/client";
+import type { RecipeReview } from "@prisma/client";
 
 export default function ReviewForm({
   formValue,
@@ -43,7 +43,7 @@ export default function ReviewForm({
   }
 
   return (
-    <Card className="w-[36rem]">
+    <Card className="w-full sm:w-[36rem]">
       <CardHeader className="-mb-4">
         <Controller
           control={control}

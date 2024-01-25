@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 
 import MainNavbar from "~/app/_components/MainNavbar";
+import Footer from "~/app/_components/Footer";
 
 import { extractRouterConfig } from "uploadthing/server";
 import { chefFileRouter } from "~/app/api/uploadthing/core";
@@ -38,7 +39,7 @@ export default async function RootLayout({
     //Currently there is no better solution than suppressing the error message: https://github.com/pacocoursey/next-themes/issues/169
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`font-sans ${inter.variable} min-h-screen bg-background text-foreground`}
+        className={`font-sans ${inter.variable} flex min-h-screen flex-col justify-between bg-background text-foreground`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(chefFileRouter)} />
         <Providers>
@@ -50,6 +51,7 @@ export default async function RootLayout({
             </div>
           </TRPCReactProvider>
         </Providers>
+        <Footer />
       </body>
     </html>
   );

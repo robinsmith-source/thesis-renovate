@@ -7,6 +7,7 @@ import ReviewCard from "./ReviewCard";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDisclosure } from "@nextui-org/react";
 import UniversalModal from "~/app/_components/UniversalModal";
+import { useRouter } from "next/navigation";
 
 enum Modes {
   CREATE,
@@ -46,6 +47,7 @@ export default function ReviewFormHandler({
     }
   }, [myReviewQuery]);
 
+  const router = useRouter();
   const onCreate = (data: { rating: number; comment: string | null }) => {
     createMutation.mutate({
       rating: data.rating,
@@ -63,6 +65,7 @@ export default function ReviewFormHandler({
         comment: data.comment,
       });
       setMode(Modes.VIEW);
+      router.refresh();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -90,6 +93,7 @@ export default function ReviewFormHandler({
         comment: data.comment,
       });
       setMode(Modes.VIEW);
+      router.refresh();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -107,6 +111,7 @@ export default function ReviewFormHandler({
       toast.success("Review deleted successfully");
       setSubmittedReview(null);
       setMode(Modes.CREATE);
+      router.refresh();
     },
     onError: (error) => {
       toast.error(error.message);
