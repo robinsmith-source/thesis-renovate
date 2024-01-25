@@ -1,11 +1,11 @@
-import "~/styles/globals.css";
 import React from "react";
+import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 
-import MainNavbar from "~/app/_components/MainNavbar";
 import Footer from "~/app/_components/Footer";
+import MainNavbar from "~/app/_components/MainNavbar";
 
 import { extractRouterConfig } from "uploadthing/server";
 import { chefFileRouter } from "~/app/api/uploadthing/core";
@@ -13,8 +13,8 @@ import { chefFileRouter } from "~/app/api/uploadthing/core";
 import { Providers } from "~/app/providers";
 import { TRPCReactProvider } from "~/trpc/react";
 
-import { Toaster } from "react-hot-toast";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { Toaster } from "react-hot-toast";
 import { auth } from "../../auth";
 
 const inter = Inter({
@@ -42,22 +42,20 @@ export default async function RootLayout({
         className={`font-sans ${inter.variable} bg-background text-foreground`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(chefFileRouter)} />
-        <SessionProvider session={session}>
-          <Providers>
-            <TRPCReactProvider headers={headers()}>
-              <div className="flex min-h-screen flex-col justify-between">
-                <div>
-                  <MainNavbar />
-                  <div className="mx-auto max-w-screen-xl p-8">
-                    <Toaster />
-                    {children}
-                  </div>
+        <Providers>
+          <TRPCReactProvider headers={headers()}>
+            <div className="flex min-h-screen flex-col justify-between">
+              <div>
+                <MainNavbar session={session} />
+                <div className="mx-auto max-w-screen-xl p-8">
+                  <Toaster />
+                  {children}
                 </div>
-                <Footer />
               </div>
-            </TRPCReactProvider>
-          </Providers>
-        </SessionProvider>
+              <Footer />
+            </div>
+          </TRPCReactProvider>
+        </Providers>
       </body>
     </html>
   );
