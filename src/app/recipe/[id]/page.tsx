@@ -14,6 +14,7 @@ import ShoppingListHandler from "~/app/recipe/[id]/ShoppingListHandler";
 import { PortionSizeProvider } from "~/app/recipe/[id]/PortionSizeContext";
 import RatingDisplay from "~/app/_components/RatingDisplay";
 import { calculateAverage } from "~/utils/RatingCalculator";
+import RecipeSaveButton from "./RecipeSaveButton";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
@@ -54,7 +55,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
             <RatingDisplay rating={averageRating} total={totalReviews} />
           </div>
-          <div className="my-2 flex gap-2">
+          <div className="my-2 flex flex-wrap gap-2">
             {recipe.labels.map((label) => (
               <Chip key={label.id}>{label.name}</Chip>
             ))}
@@ -63,8 +64,12 @@ export default async function Page({ params }: { params: { id: string } }) {
           <p>{recipe.description}</p>
           <Divider className="my-4" />
 
-          <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:justify-between">
-            <ImageCarousel images={recipe.images} className="md:order-1" />
+          <div
+            className={`flex flex-col items-center justify-center gap-6 md:flex-row md:justify-evenly md:gap-12`}
+          >
+            {recipe.images.length > 0 && (
+              <ImageCarousel images={recipe.images} className="md:order-1" />
+            )}
             <ShoppingListHandler
               isAuthorized={!!session?.user}
               shoppingLists={shoppingLists}
@@ -89,7 +94,14 @@ export default async function Page({ params }: { params: { id: string } }) {
           </table>
         </div>
       </PortionSizeProvider>
-      <div className="mt-4 flex justify-center gap-2">
+      {session?.user && (
+        <RecipeSaveButton
+          recipeId={recipe.id}
+          isSaved={recipe.savedUsers.length > 0}
+          savedCount={recipe._count.savedUsers}
+        />
+      )}
+      <div className="mt-4 flex flex-wrap justify-center gap-2">
         {recipe.tags.map((tag) => (
           <Chip color="secondary" key={tag} variant="flat">
             #{tag}

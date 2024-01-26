@@ -1,19 +1,21 @@
 "use client";
 
 import { api } from "~/trpc/react";
-import RecipeForm, { type RecipeFormValues } from "../../_common/RecipeForm";
+import RecipeForm, { type RecipeFormValues } from "../_common/RecipeForm";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import type { RouterInputs } from "~/trpc/shared";
+import { revalidatePath } from "next/cache";
 
-export default function FormHandler({ recipe }: { recipe: RecipeFormValues }) {
+export default function CreateFormHandler({ userId }: { userId?: string }) {
   const router = useRouter();
-  const mutation = api.recipe.update.useMutation({
+
+  const mutation = api.recipe.create.useMutation({
     onSuccess: (id) => {
-      toast.success(`Recipe Updated!`);
+      toast.success("Recipe created!");
       router.push(`/recipe/${id}`);
-      router.refresh();
+      revalidatePath(`/user/${userId}`);
     },
+
     onError: (err) => {
       console.log(err);
       toast.error(err.message);
@@ -22,7 +24,6 @@ export default function FormHandler({ recipe }: { recipe: RecipeFormValues }) {
 
   const onSubmit = (data: RecipeFormValues) => {
     mutation.mutate({
-      id: recipe.id,
       name: data.name,
       description: data.description,
       difficulty: data.difficulty,
@@ -37,9 +38,9 @@ export default function FormHandler({ recipe }: { recipe: RecipeFormValues }) {
           quantity: ingredient.quantity,
           unit: ingredient.unit,
         })),
-      })) as RouterInputs["recipe"]["update"]["steps"],
+      })),
     });
   };
 
-  return <RecipeForm submit={onSubmit} formValue={recipe} />;
+  return <RecipeForm submit={onSubmit} formValue={{}} />;
 }

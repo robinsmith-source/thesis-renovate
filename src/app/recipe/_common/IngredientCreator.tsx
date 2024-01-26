@@ -24,7 +24,7 @@ export default function IngredientCreator({
   });
 
   return (
-    <div className="ml-8 space-y-4">
+    <div className="ml-4 space-y-4 sm:ml-8">
       <Accordion defaultExpandedKeys={["Ingredients"]}>
         <AccordionItem
           textValue={"Ingredients"}
@@ -44,12 +44,16 @@ export default function IngredientCreator({
         >
           <div className="flex flex-col gap-4">
             {fields.map((ingredient, index) => (
-              <div key={ingredient.id} className="flex items-center gap-2">
+              <div
+                key={ingredient.id}
+                className="grid w-full grid-cols-[4fr_4fr_1fr] items-center gap-2 md:flex"
+              >
                 <Controller
                   control={control}
                   name={`steps.${stepIndex}.ingredients.${index}.name`}
                   render={({ field, fieldState }) => (
                     <Input
+                      className="col-span-2"
                       {...field}
                       label="Name"
                       variant="bordered"
@@ -59,6 +63,18 @@ export default function IngredientCreator({
                     />
                   )}
                 />
+
+                <Button
+                  className="row-span-2 place-self-center md:order-4"
+                  isIconOnly
+                  color="danger"
+                  type="button"
+                  size="sm"
+                  variant="flat"
+                  onPress={() => remove(index)}
+                >
+                  <FaMinus />
+                </Button>
 
                 <Controller
                   control={control}
@@ -118,17 +134,6 @@ export default function IngredientCreator({
                     </Select>
                   )}
                 />
-
-                <Button
-                  isIconOnly
-                  color="danger"
-                  type="button"
-                  size="sm"
-                  variant="flat"
-                  onPress={() => remove(index)}
-                >
-                  <FaMinus />
-                </Button>
               </div>
             ))}
           </div>
