@@ -67,7 +67,7 @@ export default function TagInput() {
                 {fields.map((field, index) => (
                   <Chip
                     {...field}
-                    key={index}
+                    key={field.id}
                     onClose={() => handleClose(index)}
                     color="secondary"
                     variant="faded"
