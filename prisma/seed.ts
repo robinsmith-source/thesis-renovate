@@ -102,11 +102,12 @@ async function seedEasterEgg() {
           {
             name: "UML Glühwein",
             description:
-              "JA HALLO. Heut gibt's noch nen kleinen Tipp, wie man ganz einfach des Hausmacher EHHH Glühwein Rezept machen kann - FÜR INFORMATIKER!!!!" +
+              "JA HALLO. Heut gibt's noch nen kleinen Tipp, wie man ganz einfach des Hausmacher EHHH Glühwein Rezept machen kann - FÜR INFORMATIKER!!!! " +
               "Deswegen machen wa des ganze in UML",
             difficulty: "MEDIUM",
             images: [
-              //TODO: insert images
+              "https://utfs.io/f/41ddc442-6796-4023-bd5f-c512f9d08257-1nq2cb.png",
+              "https://utfs.io/f/e8b55680-bc74-49a8-b869-22e92e98a998-1nq2cb.png",
             ],
             labels: {
               connect: [
@@ -129,7 +130,7 @@ async function seedEasterEgg() {
                 },
                 {
                   description:
-                    "Ja was brauchen wir dann noch? Vielleicht ein Herd oder. Machen wir noch ein Herd dazu - JAA IST GUT" +
+                    "Ja was brauchen wir dann noch? Vielleicht ein Herd oder. Machen wir noch ein Herd dazu - JAA IST GUT " +
                     "Das ganze muss ja auch warm sein. Name ist Programm!",
                   stepType: "PREP",
                   duration: 1,
@@ -169,10 +170,14 @@ async function seedEasterEgg() {
           {
             name: "Nikolaus Gewinnspiel",
             description:
-              "Hallo Liebe Freunde und Freundinnen der Informatik - HOHOHO. Heute Willkommen beim MM und MI Homeshopping Center! uNd CsM iSt aUcH dAbEi!!!" +
+              "Hallo Liebe Freunde und Freundinnen der Informatik - HOHOHO. Heute Willkommen beim MM und MI Homeshopping Center! uNd CsM iSt aUcH dAbEi!!! " +
               "Bei und gibt es Gewinne Gewinne heutzutage zum Nikolaus. Und wir haben da eine kleine Frage vorbereitet, weil ohne Frage auch keine Preise! Und der Preis ist Heiß, der Heiß ist Preis",
             difficulty: "HARD",
-            images: [],
+            images: [
+              "https://utfs.io/f/4c505332-8a25-4b03-bfc9-170d3220223f-1nq2cb.png",
+              "https://utfs.io/f/40af2fd7-5166-45b5-ace6-ac091396e932-1nq2cb.png",
+              "https://utfs.io/f/691ebba0-34f9-4d1e-aff9-6b0b0c541e3e-1nq2cb.png",
+            ],
             labels: {
               connect: [
                 {
