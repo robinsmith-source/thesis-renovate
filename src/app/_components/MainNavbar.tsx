@@ -83,9 +83,8 @@ function LoginBar({ session }: { session: Session }) {
   );
 }
 
-export default function MainNavbar() {
-  const { data: session } = useSession();
-
+export default function MainNavbar({ session }: { session: Session | null }) {
+  
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarLinks = [
@@ -94,7 +93,6 @@ export default function MainNavbar() {
     { name: "Users", href: "/user/search" },
   ];
 
-export default function MainNavbar({ session }: { session: Session | null }) {
   return (
     <Navbar
       maxWidth="xl"
