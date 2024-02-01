@@ -1,7 +1,7 @@
 "use client";
 
 import type { ShoppingList, ShoppingListItem, Unit } from "@prisma/client";
-import ShoppingListHandler from "~/app/_components/ShoppingListFormHandler";
+import ShoppingListHandler from "~/app/shopping-list/ShoppingListFormHandler";
 import IngredientTable from "~/app/_components/IngredientTable";
 import { Card, CardHeader } from "@nextui-org/card";
 import {
@@ -71,10 +71,8 @@ export default function ShoppingListCard({
   });
 
   const router = useRouter();
-  console.log(selectedIngredients);
 
   function onAdd(data: { name: string; quantity: number; unit: Unit }) {
-    console.log(typeof data.unit);
     addMutation.mutate({
       shoppingListId: shoppingList.id,
       ingredients: [
