@@ -24,6 +24,7 @@ jobs:
           - 5432:5432
     env:
       DATABASE_URL: "postgresql://se3:example@localhost:5432/se3?schema=public"
+      AUTH_URL: "http://localhost:3000"
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
