@@ -1,4 +1,4 @@
-import { Prisma, type RecipeStepIngredient } from "@prisma/client";
+import type { Prisma, RecipeStepIngredient } from "@prisma/client";
 
 export enum ShoppingListModes {
   CREATE,
