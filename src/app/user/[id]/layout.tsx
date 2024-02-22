@@ -18,6 +18,17 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   return {
     title: user.name,
+    openGraph: {
+      images: [
+        {
+          url: new URL(`${user.image}`, import.meta.url),
+          width: 600,
+          height: 600,
+          alt: `Profile picture of ${user.name || ""}`,
+        },
+      ],
+      type: "profile",
+    },
     description: `They've created ${meta.recipeCount} ${
       meta.recipeCount === 1 ? "recipe" : "recipes"
     }, are followed by ${meta.followedByCount} people, and follow ${

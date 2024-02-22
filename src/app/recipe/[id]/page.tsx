@@ -28,6 +28,20 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     title: recipe.name,
     description: recipe.description,
     keywords: recipe.labels.flatMap((label) => label.name),
+    openGraph: {
+      images: [
+        {
+          url: new URL(
+            `https://utfs.io/f/${recipe.images[0]}`,
+            import.meta.url,
+          ),
+          width: 600,
+          height: 600,
+          alt: `Preview image of ${recipe.name || ""}`,
+        },
+      ],
+      type: "profile",
+    },
   };
 }
 
