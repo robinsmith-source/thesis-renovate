@@ -15,10 +15,39 @@ import { PortionSizeProvider } from "~/app/recipe/[id]/PortionSizeContext";
 import RatingDisplay from "~/app/_components/RatingDisplay";
 import { calculateAverage } from "~/utils/RatingCalculator";
 import RecipeSaveButton from "./RecipeSaveButton";
+import { cache } from "react";
+
+const getRecipe = cache(async (id: string) => {
+  return await api.recipe.get.query({ id });
+});
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const recipe = await getRecipe(params.id);
+
+  return {
+    title: recipe.name,
+    description: recipe.description,
+    keywords: recipe.labels.flatMap((label) => label.name),
+    openGraph: {
+      images: [
+        {
+          url: new URL(
+            `https://utfs.io/f/${recipe.images[0]}`,
+            import.meta.url,
+          ),
+          width: 600,
+          height: 600,
+          alt: `Preview image of ${recipe.name}`,
+        },
+      ],
+      type: "article",
+    },
+  };
+}
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
-  const recipe = await api.recipe.get.query({ id: params.id });
+  const recipe = await getRecipe(params.id);
   if (!recipe) {
     notFound();
   }

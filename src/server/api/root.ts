@@ -3,7 +3,6 @@ import { recipeRouter } from "~/server/api/routers/recipe";
 import { userRouter } from "~/server/api/routers/user";
 import { reviewRouter } from "~/server/api/routers/review";
 import { shoppingListRouter } from "~/server/api/routers/shoppingList";
-import { recipeLabelCategoryRouter } from "./routers/recipeLabelCategory";
 
 /**
  * This is the primary router for your server.
@@ -12,7 +11,6 @@ import { recipeLabelCategoryRouter } from "./routers/recipeLabelCategory";
  */
 export const appRouter = createTRPCRouter({
   recipe: recipeRouter,
-  recipeLabelCategory: recipeLabelCategoryRouter,
   user: userRouter,
   review: reviewRouter,
   shoppingList: shoppingListRouter,

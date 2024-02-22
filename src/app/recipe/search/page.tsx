@@ -50,7 +50,7 @@ export default async function Page({
 }: {
   searchParams?: urlParams;
 }) {
-  const categories = await api.recipeLabelCategory.getAll.query();
+  const categories = await api.recipe.getAllLabels.query();
 
   const queryParameters = createQueryParams(searchParams ?? {});
   const displayedRecipeCards = await api.recipe.getCards.query(queryParameters);
