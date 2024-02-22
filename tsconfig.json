@@ -18,7 +18,9 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@auth/core/*" : ["./node_modules/@auth/core/*"]
+
     },
     "plugins": [{ "name": "next" }]
   },

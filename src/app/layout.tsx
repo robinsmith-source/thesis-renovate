@@ -23,6 +23,7 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://goosechef.de"),
   title: {
     template: "%s | GooseChef",
     default: "GooseChef",

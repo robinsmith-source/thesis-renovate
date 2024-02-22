@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
 import Discord from "next-auth/providers/discord";
+
 import { db } from "~/server/db";
 
 declare module "@auth/core" {
@@ -18,6 +19,7 @@ export const {
   session: {
     strategy: "jwt",
   },
+  // @ts-expect-error
   providers: [Discord],
   adapter: PrismaAdapter(db),
   pages: {
