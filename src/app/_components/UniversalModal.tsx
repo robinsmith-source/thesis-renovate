@@ -7,9 +7,9 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-interface UniversalModalProps {
+type UniversalModalProps = {
   className?: string;
   isOpen: boolean;
   onOpenChange: () => void;
@@ -26,7 +26,7 @@ interface UniversalModalProps {
     | "danger"
     | undefined;
   cancelText?: string;
-}
+};
 
 export default function UniversalModal({
   className,

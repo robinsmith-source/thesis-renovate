@@ -1,13 +1,13 @@
 "use client";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { Children, type ReactNode, useEffect, useRef } from "react";
 
-interface FadeInProps {
+type FadeInProps = {
   className?: string;
   children: ReactNode | ReactNode[];
   direction?: "top" | "bottom" | "left" | "right";
   offset?: number;
-}
+};
 
 export const FadeIn = ({
   className,

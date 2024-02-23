@@ -4,14 +4,14 @@ import { type User } from "@prisma/client";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/trpc/react";
-import type { RouterOutputs } from "~/trpc/shared";
+import { type RouterOutputs } from "~/trpc/shared";
 
-interface UserCardInnerProps {
+type UserCardInnerProps = {
   user: User;
   userMeta: RouterOutputs["user"]["getMetadata"];
   highlightLink: boolean;
   withFollowButton: boolean;
-}
+};
 
 export default function UserCardInner({
   user,

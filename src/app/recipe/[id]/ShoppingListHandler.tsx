@@ -1,22 +1,22 @@
 "use client";
 import ShoppingListSelector from "~/app/shopping-list/ShoppingListSelector";
 import IngredientTable from "~/app/_components/IngredientTable";
-import type { RecipeStepIngredient } from "@prisma/client";
+import { type RecipeStepIngredient } from "@prisma/client";
 import { type Key, useCallback, useState } from "react";
 import { api } from "~/trpc/react";
 import toast from "react-hot-toast";
-import type { Ingredient } from "~/utils/IngredientCalculator";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { type Ingredient } from "~/app/lib/types";
 
-interface ShoppingListHandlerProps {
+type ShoppingListHandlerProps = {
   isAuthorized?: boolean;
   ingredients: RecipeStepIngredient[];
   shoppingLists: {
     id: string;
     name: string;
   }[];
-}
+};
 
 export default function ShoppingListHandler({
   isAuthorized = false,

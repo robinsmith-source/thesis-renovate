@@ -17,7 +17,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
-import type { Session } from "next-auth";
+import { type Session } from "next-auth";
 import ThemeSwitcher from "~/app/_components/ThemeSwitcher";
 import NextImage from "next/image";
 import NextLink from "next/link";

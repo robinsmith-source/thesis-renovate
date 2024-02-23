@@ -6,7 +6,7 @@ import { calculateIngredients } from "~/utils/IngredientCalculator";
 import { usePortionSize } from "~/app/recipe/[id]/PortionSizeContext";
 
 import { RecipeStepType } from "@prisma/client";
-import type { RouterOutputs } from "~/trpc/shared";
+import { type RouterOutputs } from "~/trpc/shared";
 
 export default function RecipeStep({
   step,

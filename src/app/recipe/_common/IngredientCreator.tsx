@@ -7,7 +7,7 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import type { Unit } from "@prisma/client";
+import { type Unit } from "@prisma/client";
 import { FaMinus } from "react-icons/fa6";
 
 export default function IngredientCreator({

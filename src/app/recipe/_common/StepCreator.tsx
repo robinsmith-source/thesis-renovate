@@ -10,7 +10,7 @@ import {
   SelectItem,
   Textarea,
 } from "@nextui-org/react";
-import type { RecipeStepType } from "@prisma/client";
+import { type RecipeStepType } from "@prisma/client";
 import { motion } from "framer-motion";
 
 import IngredientCreator from "./IngredientCreator";
