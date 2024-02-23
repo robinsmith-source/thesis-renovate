@@ -11,7 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import { ReviewSchema } from "~/app/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RatingInput from "./RatingInput";
-import type { RecipeReview } from "@prisma/client";
+import { type RecipeReview } from "@prisma/client";
 
 export default function ReviewForm({
   formValue,

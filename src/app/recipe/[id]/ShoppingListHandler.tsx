@@ -1,7 +1,7 @@
 "use client";
 import ShoppingListSelector from "~/app/shopping-list/ShoppingListSelector";
 import IngredientTable from "~/app/_components/IngredientTable";
-import type { RecipeStepIngredient } from "@prisma/client";
+import { type RecipeStepIngredient } from "@prisma/client";
 import { type Key, useCallback, useState } from "react";
 import { api } from "~/trpc/react";
 import toast from "react-hot-toast";

@@ -9,8 +9,7 @@ import {
 } from "@nextui-org/react";
 import RatingDisplay from "~/app/_components/RatingDisplay";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
-import { type RecipeReview } from "@prisma/client";
-import { type User as UserType } from "@prisma/client";
+import { type RecipeReview, type User as UserType } from "@prisma/client";
 
 type ReviewCardProps = {
   review: Pick<RecipeReview, "id" | "rating" | "comment"> & {

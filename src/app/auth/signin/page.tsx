@@ -1,9 +1,9 @@
 "use client";
-import type { BuiltInProviderType } from "next-auth/providers";
+import { type BuiltInProviderType } from "next-auth/providers";
 import { Button, CardBody, CardHeader } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { type LiteralUnion, signIn } from "next-auth/react";
-import type { ClientSafeProvider } from "next-auth/lib/client";
+import { type ClientSafeProvider } from "next-auth/lib/client";
 
 type ProviderTypes = Record<
   LiteralUnion<BuiltInProviderType>,

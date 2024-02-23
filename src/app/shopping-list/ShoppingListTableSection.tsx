@@ -1,5 +1,6 @@
 import ShoppingListCard from "~/app/shopping-list/ShoppingListCard";
 import { type ShoppingListType } from "~/app/lib/types";
+
 export default function ShoppingListTableSection({
   className,
   shoppingLists,

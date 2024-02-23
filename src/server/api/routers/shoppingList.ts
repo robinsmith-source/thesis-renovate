@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { equivalentUnits } from "~/utils/IngredientCalculator";
-import type { Unit } from "@prisma/client";
+import { type Unit } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { ShoppingListItemSchema, ShoppingListSchema } from "~/app/lib/schemas";
 

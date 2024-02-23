@@ -1,4 +1,4 @@
-import type { User as UserType } from "@prisma/client";
+import { type User as UserType } from "@prisma/client";
 import RecipeCardsSection from "~/app/_components/RecipeCardsSection";
 import UserCard from "~/app/_components/UserCard";
 import { api } from "~/trpc/server";

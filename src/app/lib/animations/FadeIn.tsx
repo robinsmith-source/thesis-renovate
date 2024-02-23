@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { Children, type ReactNode, useEffect, useRef } from "react";
 
 type FadeInProps = {
