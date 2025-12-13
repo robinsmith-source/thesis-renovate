@@ -25,16 +25,16 @@ dependencies:
     version: 4.42.0(react-dom@18.3.1)(react@18.3.1)
   '@trpc/client':
     specifier: ^10.37.1
-    version: 10.45.2(@trpc/server@10.45.2)
+    version: 10.45.2(@trpc/server@11.8.0)
   '@trpc/next':
     specifier: ^10.37.1
-    version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.2.35)(react-dom@18.3.1)(react@18.3.1)
+    version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@11.8.0)(next@14.2.35)(react-dom@18.3.1)(react@18.3.1)
   '@trpc/react-query':
     specifier: ^10.37.1
-    version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@10.45.2)(react-dom@18.3.1)(react@18.3.1)
+    version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@11.8.0)(react-dom@18.3.1)(react@18.3.1)
   '@trpc/server':
-    specifier: ^10.37.1
-    version: 10.45.2
+    specifier: ^11.0.0
+    version: 11.8.0(typescript@5.9.3)
   '@uploadthing/react':
     specifier: ^6.0.2
     version: 6.1.0(next@14.2.35)(react@18.3.1)(uploadthing@6.1.1)
@@ -3703,15 +3703,15 @@ packages:
       use-sync-external-store: 1.6.0(react@18.3.1)
     dev: false
 
-  /@trpc/client@10.45.2(@trpc/server@10.45.2):
+  /@trpc/client@10.45.2(@trpc/server@11.8.0):
     resolution: {integrity: sha512-ykALM5kYWTLn1zYuUOZ2cPWlVfrXhc18HzBDyRhoPYN0jey4iQHEFSEowfnhg1RvYnrAVjNBgHNeSAXjrDbGwg==}
     peerDependencies:
       '@trpc/server': 10.45.2
     dependencies:
-      '@trpc/server': 10.45.2
+      '@trpc/server': 11.8.0(typescript@5.9.3)
     dev: false
 
-  /@trpc/next@10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.2.35)(react-dom@18.3.1)(react@18.3.1):
+  /@trpc/next@10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@11.8.0)(next@14.2.35)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-RSORmfC+/nXdmRY1pQ0AalsVgSzwNAFbZLYHiTvPM5QQ8wmMEHilseCYMXpu0se/TbPt9zVR6Ka2d7O6zxKkXg==}
     peerDependencies:
       '@tanstack/react-query': ^4.18.0
@@ -3723,15 +3723,15 @@ packages:
       react-dom: '>=16.8.0'
     dependencies:
       '@tanstack/react-query': 4.42.0(react-dom@18.3.1)(react@18.3.1)
-      '@trpc/client': 10.45.2(@trpc/server@10.45.2)
-      '@trpc/react-query': 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@10.45.2)(react-dom@18.3.1)(react@18.3.1)
-      '@trpc/server': 10.45.2
+      '@trpc/client': 10.45.2(@trpc/server@11.8.0)
+      '@trpc/react-query': 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@11.8.0)(react-dom@18.3.1)(react@18.3.1)
+      '@trpc/server': 11.8.0(typescript@5.9.3)
       next: 14.2.35(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /@trpc/react-query@10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@10.45.2)(react-dom@18.3.1)(react@18.3.1):
+  /@trpc/react-query@10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@11.8.0)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-BAqb9bGZIscroradlNx+Cc9522R+idY3BOSf5z0jHUtkxdMbjeGKxSSMxxu7JzoLqSIEC+LVzL3VvF8sdDWaZQ==}
     peerDependencies:
       '@tanstack/react-query': ^4.18.0
@@ -3741,14 +3741,18 @@ packages:
       react-dom: '>=16.8.0'
     dependencies:
       '@tanstack/react-query': 4.42.0(react-dom@18.3.1)(react@18.3.1)
-      '@trpc/client': 10.45.2(@trpc/server@10.45.2)
-      '@trpc/server': 10.45.2
+      '@trpc/client': 10.45.2(@trpc/server@11.8.0)
+      '@trpc/server': 11.8.0(typescript@5.9.3)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /@trpc/server@10.45.2:
-    resolution: {integrity: sha512-wOrSThNNE4HUnuhJG6PfDRp4L2009KDVxsd+2VYH8ro6o/7/jwYZ8Uu5j+VaW+mOmc8EHerHzGcdbGNQSAUPgg==}
+  /@trpc/server@11.8.0(typescript@5.9.3):
+    resolution: {integrity: sha512-DphyQnLuyX2nwJCQGWQ9zYz4hZGvRhSBqDhQ0SH3tDhQ3PU4u68xofA0pJ741Ir4InEAFD+TtJVLAQy+wVOkiQ==}
+    peerDependencies:
+      typescript: '>=5.7.2'
+    dependencies:
+      typescript: 5.9.3
     dev: false
 
   /@tybys/wasm-util@0.10.1:
