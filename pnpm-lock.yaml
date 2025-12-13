@@ -28,7 +28,7 @@ dependencies:
     version: 10.45.2(@trpc/server@10.45.2)
   '@trpc/next':
     specifier: ^10.37.1
-    version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.2.33)(react-dom@18.3.1)(react@18.3.1)
+    version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.2.35)(react-dom@18.3.1)(react@18.3.1)
   '@trpc/react-query':
     specifier: ^10.37.1
     version: 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@10.45.2)(react-dom@18.3.1)(react@18.3.1)
@@ -37,16 +37,16 @@ dependencies:
     version: 10.45.2
   '@uploadthing/react':
     specifier: ^6.0.2
-    version: 6.1.0(next@14.2.33)(react@18.3.1)(uploadthing@6.1.1)
+    version: 6.1.0(next@14.2.35)(react@18.3.1)(uploadthing@6.1.1)
   framer-motion:
     specifier: ^10.16.4
     version: 10.18.0(react-dom@18.3.1)(react@18.3.1)
   next:
     specifier: ^14.1.0
-    version: 14.2.33(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
+    version: 14.2.35(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
   next-auth:
     specifier: 5.0.0-beta.30
-    version: 5.0.0-beta.30(next@14.2.33)(react@18.3.1)
+    version: 5.0.0-beta.30(next@14.2.35)(react@18.3.1)
   next-themes:
     specifier: ^0.4.0
     version: 0.4.6(react-dom@18.3.1)(react@18.3.1)
@@ -1059,8 +1059,8 @@ packages:
     dev: true
     optional: true
 
-  /@next/env@14.2.33:
-    resolution: {integrity: sha512-CgVHNZ1fRIlxkLhIX22flAZI/HmpDaZ8vwyJ/B0SDPTBuLZ1PJ+DWMjCHhqnExfmSQzA/PbZi8OAc7PAq2w9IA==}
+  /@next/env@14.2.35:
+    resolution: {integrity: sha512-DuhvCtj4t9Gwrx80dmz2F4t/zKQ4ktN8WrMwOuVzkJfBilwAwGr6v16M5eI8yCuZ63H9TTuEU09Iu2HqkzFPVQ==}
     dev: false
 
   /@next/eslint-plugin-next@14.2.35:
@@ -3711,7 +3711,7 @@ packages:
       '@trpc/server': 10.45.2
     dev: false
 
-  /@trpc/next@10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.2.33)(react-dom@18.3.1)(react@18.3.1):
+  /@trpc/next@10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.2.35)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-RSORmfC+/nXdmRY1pQ0AalsVgSzwNAFbZLYHiTvPM5QQ8wmMEHilseCYMXpu0se/TbPt9zVR6Ka2d7O6zxKkXg==}
     peerDependencies:
       '@tanstack/react-query': ^4.18.0
@@ -3726,7 +3726,7 @@ packages:
       '@trpc/client': 10.45.2(@trpc/server@10.45.2)
       '@trpc/react-query': 10.45.2(@tanstack/react-query@4.42.0)(@trpc/client@10.45.2)(@trpc/server@10.45.2)(react-dom@18.3.1)(react@18.3.1)
       '@trpc/server': 10.45.2
-      next: 14.2.33(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
+      next: 14.2.35(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
@@ -4135,7 +4135,7 @@ packages:
     resolution: {integrity: sha512-ZUo1JHOPPMZDsUw1mOhhVDIvJGlsjj6T0xJ/YJtulyJwL43S9B5pxg1cHcRuTEgjaxj7B55jiqQ6r9mDrrjH9A==}
     dev: false
 
-  /@uploadthing/react@6.1.0(next@14.2.33)(react@18.3.1)(uploadthing@6.1.1):
+  /@uploadthing/react@6.1.0(next@14.2.35)(react@18.3.1)(uploadthing@6.1.1):
     resolution: {integrity: sha512-UCck0Jd6wJvvmVMMjlOzgGQghEvWv8Pw+IWxsWMvrD/UHiZX7cWc7TgVy88tiAdtuvgatCLfoOsemBMAIhTFdw==}
     peerDependencies:
       next: '*'
@@ -4148,7 +4148,7 @@ packages:
       '@uploadthing/shared': 6.0.3(@uploadthing/mime-types@0.2.2)
       attr-accept: 2.2.2
       file-selector: 0.6.0
-      next: 14.2.33(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
+      next: 14.2.35(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
       tailwind-merge: 1.14.0
       uploadthing: 6.1.1
@@ -4540,6 +4540,10 @@ packages:
 
   /caniuse-lite@1.0.30001759:
     resolution: {integrity: sha512-Pzfx9fOKoKvevQf8oCXoyNRQ5QyxJj+3O0Rqx2V5oxT61KGx8+n6hV/IUyJeifUci2clnmmKVpvtiqRzgiWjSw==}
+
+  /caniuse-lite@1.0.30001760:
+    resolution: {integrity: sha512-7AAMPcueWELt1p3mi13HR/LHH0TJLT11cnwDJEs3xA4+CK/PLKeO9Kl1oru24htkyUKtkGCvAx4ohB0Ttry8Dw==}
+    dev: false
 
   /chai@4.5.0:
     resolution: {integrity: sha512-RITGBfijLkBddZvnn8jdqoTypxvqbOLYQkGGxXzeFjVHvudaPw0HNFD9x928/eUwYWd2dPCugVqspGALTZZQKw==}
@@ -6230,7 +6234,7 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth@5.0.0-beta.30(next@14.2.33)(react@18.3.1):
+  /next-auth@5.0.0-beta.30(next@14.2.35)(react@18.3.1):
     resolution: {integrity: sha512-+c51gquM3F6nMVmoAusRJ7RIoY0K4Ts9HCCwyy/BRoe4mp3msZpOzYMyb5LAYc1wSo74PMQkGDcaghIO7W6Xjg==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
@@ -6247,7 +6251,7 @@ packages:
         optional: true
     dependencies:
       '@auth/core': 0.41.0
-      next: 14.2.33(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
+      next: 14.2.35(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
     dev: false
 
@@ -6261,8 +6265,8 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /next@14.2.33(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-GiKHLsD00t4ACm1p00VgrI0rUFAC9cRDGReKyERlM57aeEZkOQGcZTpIbsGn0b562FTPJWmYfKwplfO9EaT6ng==}
+  /next@14.2.35(@babel/core@7.28.5)(@playwright/test@1.41.1)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-KhYd2Hjt/O1/1aZVX3dCwGXM1QmOV4eNM2UTacK5gipDdPN/oHHK/4oVGy7X8GMfPMsUTUEmGlsy0EY1YGAkig==}
     engines: {node: '>=18.17.0'}
     hasBin: true
     peerDependencies:
@@ -6279,11 +6283,11 @@ packages:
       sass:
         optional: true
     dependencies:
-      '@next/env': 14.2.33
+      '@next/env': 14.2.35
       '@playwright/test': 1.41.1
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001759
+      caniuse-lite: 1.0.30001760
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
