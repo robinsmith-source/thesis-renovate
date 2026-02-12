@@ -8,7 +8,7 @@ jobs:
   install:
     timeout-minutes: 15
     name: 🔍 Playwright - Install
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -52,7 +52,7 @@ jobs:
     name: 🧪 Playwright - Test
     needs: [ install ]
     timeout-minutes: 15
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres
